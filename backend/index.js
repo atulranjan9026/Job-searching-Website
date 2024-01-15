@@ -5,8 +5,9 @@ const app = express();
 require('dotenv').config();
 app.use(cors())
 const bodyParser = require('body-parser');
-
 const path =require('path')
+
+const port = process.env.PORT || 5000
 
 //static files
 app.use(express.static(path.join(__dirname, "./frontend/dist")));
@@ -142,6 +143,6 @@ app.post('/minidbnew', (req, res) => {
     return res.json("From Backend Side")
   })
   
-  app.listen(5000 ,()=>{
+  app.listen(port ,()=>{
       console.log("Connected to backend!")
   })
