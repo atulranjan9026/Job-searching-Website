@@ -2,6 +2,7 @@ const express = require('express');
 const mysql = require('mysql');
 const cors= require('cors')
 const app = express();
+require('dotenv').config();
 app.use(cors())
 const bodyParser = require('body-parser');
 
@@ -13,12 +14,16 @@ app.get("*",function(req,res){
   res.sendFile(path.resolve(__dirname,"./frontend/dist/index.html"))
 });
 
+
 const db = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: '',
-    database: 'minidbnew',
-  });
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_DATABASE,
+});
+
+
+
 
     // Connect to MySQL
 db.connect((err) => {
