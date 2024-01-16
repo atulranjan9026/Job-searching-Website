@@ -7,7 +7,7 @@ app.use(cors())
 const bodyParser = require('body-parser');
 const path =require('path')
 
-const port = process.env.PORT || 5000
+const port = process.env.PORT || 3000
 
 //static files
 app.use(express.static(path.join(__dirname, "./frontend/dist")));
