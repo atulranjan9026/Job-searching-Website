@@ -1,0 +1,25 @@
+/* ========================footer============= */
+
+.footer {
+    color: white;
+    padding: 25px;
+    background: #000000; /* fallback for old browsers */
+    background: -webkit-linear-gradient(
+      to right,
+      #434343,
+      #443636
+    ); /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #434343, #000000);
+  }
+  
+  .footer a {
+    text-decoration: none;
+    color: white;
+    padding: 10px;
+  }
+  
+  .footer a:hover {
+    color: #ffefba;
+    border-bottom: 1px solid #ffefba;
+  }
+  
