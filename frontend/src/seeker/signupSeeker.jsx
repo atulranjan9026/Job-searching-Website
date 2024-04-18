@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import ValidationSE from './SignupValidationseeker';
+import ValidationSE from "./SignupValidationseeker";
 
 import axios from "axios";
 
@@ -15,7 +15,6 @@ function signupSeeker() {
       [event.target.name]: event.target.value,
     }));
   };
-  
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -24,13 +23,15 @@ function signupSeeker() {
     console.log(values);
 
     try {
-        const response = await axios.post("http://localhost:5000/minidbnew", values);
-       
-        // Assuming your server responds with a 'result' property
-        console.log("response.data.result :",response.data);
-        navigate("/loginSeeker");
+      const response = await axios.post(
+        "http://localhost:5000/minidbnew",
+        values
+      );
+
+      // Assuming your server responds with a 'result' property
+      console.log("response.data.result :", response.data);
+      navigate("/loginSeeker");
       // }
-  
     } catch (error) {
       console.error("Error submitting data:", error);
     }
@@ -88,7 +89,7 @@ function signupSeeker() {
             {" "}
             Sign up
           </button>{" "}
-          <p>You are agree to aour terms and policies</p>
+          <p>You are agree to our terms and policies</p>
           <Link
             to="/loginSeeker"
             className="btn btn-default border w-100 bg-light rounded-0 text-decoration-none"

@@ -1,5 +1,6 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom"; 
+import "./main.css";
 
 const main = () => {
   return (
@@ -7,8 +8,7 @@ const main = () => {
         <div>
        <div className="formDiv">
         <Link
-            to="/signupSeeker"
-            className="btn btn-success w-50 rounded-4" >
+            to="/signupSeeker" className="btn btn-success w-50 rounded-4" >
             <strong>SEEKER</strong>
           </Link>
         </div>

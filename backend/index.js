@@ -2,7 +2,6 @@ const express = require("express");
 const mysql = require("mysql");
 const cors = require("cors");
 const app = express();
-// const Razorpay = require('razorpay');
 const { check, validationResult, body } = require("express-validator");
 
 require("dotenv").config();
@@ -14,11 +13,6 @@ const port = process.env.PORT || 5000;
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-
-// const razorpay = new Razorpay({
-//   key_id: rzp_test_XM9TfMXCHH4PV8,
-//   key_secret: c6MPjSPhNUUbxhnKdtxRGUkS,
-// });
 
 //static files
 app.use(express.static(path.join(__dirname, "./frontend/dist")));
@@ -33,25 +27,7 @@ const db = mysql.createConnection({
   database: process.env.DB_DATABASE,
 });
 
-// app.post('/razorpay', async (req, res) => {
-//   const payment_capture = 1;
-//   const amount = 500; // Amount in paise
 
-//   const options = {
-//     amount,
-//     currency: 'INR',
-//     receipt: 'receipt_order_1',
-//     payment_capture,
-//   };
-
-//   try {
-//     const response = await razorpay.orders.create(options);
-//     res.json(response);
-//   } catch (error) {
-//     console.error(error);
-//     res.status(500).send('Internal Server Error');
-//   }
-// });
 
 
 //signup  seeker
@@ -77,7 +53,7 @@ app.post("/minidbnew", (req, res) => {
 // data seeker
 
 app.post("/ew", (req, res) => {
-  // if (req.body && req.body.username && req.body.location && req.body.salary && req.body.mobile && req.body.email && req.body.skill && req.body.exp && req.body.cert) {
+
     const { name , mobile , location , salary ,  email , skill , exp , cert,image } = req.body;
     const sql = `INSERT INTO seeker (name, location, salary , mobile , email ,skill,exp ,cert,image) VALUES (?, ?, ?,?, ?, ?, ?, ?,?)`;
     
@@ -93,9 +69,7 @@ app.post("/ew", (req, res) => {
         res.status(200).json({ success: true, message: "Signup successful" });
       }
     });
-  // }
-  // const data= req.body
-  // console.log("data")
+
 });
 
 // login seeker
@@ -192,21 +166,7 @@ db.connect((err) => {
 });
 
 
-// app.post('/minidbnew', (req, res) => {
-//     const { username, location, salary,skill } = req.body;
-//     const sql = 'INSERT INTO login (username, location, salary, skill) VALUES (?,?,?,?)';
-//     const values = [username, location, salary,skill];
 
-//     db.query(sql, values, (error, result) => {
-//       if (error) {
-
-//         res.status(500).json({ success: false, error: 'Internal Server Error' });
-//       } else {
-//         // console.log('Inserted into database:', result);
-//         res.status(200).json({ success: true, message: 'Form submitted successfully' });
-//       }
-//     });
-//   });
 
 app.post("/search", (req, res) => {
   const { location } = req.body;
