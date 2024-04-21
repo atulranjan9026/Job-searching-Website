@@ -168,6 +168,7 @@ db.connect((err) => {
 
 
 
+
 app.post("/search", (req, res) => {
   const { location } = req.body;
 

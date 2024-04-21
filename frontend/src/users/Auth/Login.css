@@ -1,0 +1,24 @@
+.login{
+    background-color: aqua;
+  }
+
+  .maincss{
+    display: flex;  
+     justify-content: center;  
+    align-items: center;
+    /* height: 78.1vh; */
+    height: 82vh;
+  }
+
+  .Signup{
+    display: flex;  
+     justify-content: center;  
+    align-items: center;
+    height: 82vh;
+  }
+
+  /* .loginF{
+   justify-content: center;   
+    align-items: center; 
+   
+  } */

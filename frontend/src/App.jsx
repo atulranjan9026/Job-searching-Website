@@ -1,11 +1,11 @@
 import React from 'react'
 import { Routes,Route } from "react-router-dom"
 import  HomePage from './pages/HomePage';
-import Login  from './Auth/Login';
-import Signup from './Auth/Signup';
+import Login  from './users/Auth/Login';
+import Signup from './users/Auth/Signup';
 import Result from './pages/result';
 import Seeker from './seeker/seeker';
-import Main from './seeker/main';
+import FirstPage from './firstPage/firstPage';
 import SignupSeeker from './seeker/signupSeeker';
 import LoginSeeker from './seeker/loginSeeker';
 
@@ -13,7 +13,7 @@ function App  () {
   return (
     <Routes>
       <Route>
-        <Route path='/' element={<Main />}></Route>           
+        <Route path='/' element={<FirstPage />}></Route>           
         <Route path='/HomePage' element={<HomePage />}/>
         <Route path='/login' element={<Login />}></Route>
         <Route path='/signup' element={<Signup />}></Route>           
