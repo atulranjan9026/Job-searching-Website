@@ -4,25 +4,18 @@ import { Link, useNavigate } from "react-router-dom";
 import "./seeker.css";
 
 function seeker() {
-//   const [dataknn, setDataknn] = useState([]);
-//   const [result, setResult] = useState("");
-//   const [distances, setDistances] = useState([]);
-//   const [routes, setRoutes] = useState([]);
-//   const [salary, setSalary] = useState();
-//   const [dataKnnState, setDataKNNState] = useState([]);
-//   const navigate = useNavigate();
-//   // const [idData, setIdData] = useState([]);
 
-const [formData, setFormData] = useState({
-    name: '',
-    location: '',
-    salary: '',
-    mobile: '',
-    email: '',
-    skill: '',
-    exp: '',
-    cert: '',
-    image: '',
+
+  const [formData, setFormData] = useState({
+    name: "",
+    location: "",
+    salary: "",
+    mobile: "",
+    email: "",
+    skill: "",
+    exp: "",
+    cert: "",
+    image: "",
   });
 
   const getSalaryIdx = (salary) => {
@@ -57,7 +50,6 @@ const [formData, setFormData] = useState({
     }
   };
 
-
   const navigate = useNavigate();
   const [errors, setErrors] = useState({});
 
@@ -67,42 +59,94 @@ const [formData, setFormData] = useState({
       [event.target.name]: event.target.value,
     }));
   };
-  
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     console.log(formData);
 
     try {
-        const response = await axios.post("http://localhost:5000/ew", formData);
-       
-        // Assuming your server responds with a 'result' property
-        console.log("response.data.result :",response.data);
-        navigate("/login");
+      const response = await axios.post("http://localhost:5000/ew", formData);
+
+      // Assuming your server responds with a 'result' property
+      console.log("response.data.result :", response.data);
+      navigate("/login");
       // }
-  
     } catch (error) {
       console.error("Error submitting data:", error);
     }
   };
 
   return (
-    <div className="seeker">
-      <div>
-        <form className="form" onSubmit={handleSubmit}>
-          <div className="mb-6">
+    <div className="seekerDr">
+        <form className="formDr" onSubmit={handleSubmit}>
+      <div className="formDrs">
+          <div >
             <label htmlFor="username">
               <strong>Name</strong>
             </label>
             <input
               type="text"
               name="name"
-            //   value={formData.name}
+              //   value={formData.name}
               onChange={handleChange}
-              className="form-control rounded-4"
+              className="form-control rounded-2"
+            />
+          </div>        
+          <div >
+            <label htmlFor="salary">
+              <strong>Salary</strong>
+            </label>
+            <input
+              type="number"
+              name="salary"
+              //   value={formData.salary}
+              onChange={handleChange}
+              className="form-control rounded-2"
             />
           </div>
-          <div className="mb-6">
+          <div >
+            <label htmlFor="salary">
+              <strong>Mobile</strong>
+            </label>
+            <input
+              type="number"
+              name="mobile"
+              //   value={formData.mobile}
+              onChange={handleChange}
+              className="form-control rounded-2"
+            />
+          </div>
+          <div >
+            <label htmlFor="salary">
+              <strong>Gmail</strong>
+            </label>
+            <input
+              type="email"
+              name="email"
+              //   value={formData.email}
+              onChange={handleChange}
+              className="form-control rounded-2"
+            />
+          </div>
+          <div >
+            <label htmlFor="salary">
+              <strong>Image</strong>
+            </label>
+            <input
+              type="file"
+              name="image"
+              accept="image/*"
+              //   value={formData.email}
+              onChange={handleChange}
+              className="form-control rounded-2"
+            />
+          </div>
+
+      </div>
+          {/* ------ */}
+
+          <div className="point2">
+          <div >
             <label htmlFor="location">
               <strong>Location</strong>
             </label>
@@ -110,8 +154,8 @@ const [formData, setFormData] = useState({
               id="cars"
               onChange={handleChange}
               name="location"
-            //   value={formData.location}
-              className="form-control rounded-4"
+              //   value={formData.location}
+              className="form-control rounded-2"
             >
               <option value="Aizawl">Aizawl</option>
               <option value="silchar">Silchar</option>
@@ -128,57 +172,8 @@ const [formData, setFormData] = useState({
                 Choose a Location{" "}
               </option>
             </select>
-          </div>{" "}
-          <div className="mb-6">
-            <label htmlFor="salary">
-              <strong>Salary</strong>
-            </label>
-            <input
-              type="number"
-              name="salary"
-            //   value={formData.salary}
-              onChange={handleChange}
-              className="form-control rounded-4"
-            />
           </div>
-          <div className="mb-6">
-            <label htmlFor="salary">
-              <strong>Mobile</strong>
-            </label>
-            <input
-              type="number"
-              name="mobile"
-            //   value={formData.mobile}
-              onChange={handleChange}
-              className="form-control rounded-4"
-            />
-          </div>
-          <div className="mb-6">
-            <label htmlFor="salary">
-              <strong>Gmail</strong>
-            </label>
-            <input
-              type="email"
-              name="email"
-            //   value={formData.email}
-              onChange={handleChange}
-              className="form-control rounded-4"
-            />
-          </div>
-          <div className="mb-6">
-            <label htmlFor="salary">
-              <strong>Image</strong>
-            </label>
-            <input
-              type="file"
-              name="image"
-              accept="image/*"
-            //   value={formData.email}
-              onChange={handleChange}
-              className="form-control rounded-4"
-            />
-          </div>
-          <div className="mb-6">
+          <div >
             <label htmlFor="skill">
               {" "}
               <strong>Skill </strong>
@@ -188,8 +183,8 @@ const [formData, setFormData] = useState({
               id="cars"
               onChange={handleChange}
               name="skill"
-            //   value={formData.skill}
-              className="form-control rounded-4"
+              //   value={formData.skill}
+              className="form-control rounded-2"
             >
               <option value="Painter">Painter</option>
               <option value="Gardener">Gardener</option>
@@ -204,7 +199,7 @@ const [formData, setFormData] = useState({
               </option>
             </select>
           </div>
-          <div className="mb-6">
+          <div >
             <label htmlFor="exp">
               {" "}
               <strong>Experience</strong>
@@ -214,8 +209,8 @@ const [formData, setFormData] = useState({
               id="cars"
               onChange={handleChange}
               name="exp"
-            //   value={formData.exp}
-              className="form-control rounded-4"
+              //   value={formData.exp}
+              className="form-control rounded-2"
             >
               <option value="10">10</option>
               <option value="9">9</option>
@@ -235,7 +230,7 @@ const [formData, setFormData] = useState({
               </option>
             </select>
           </div>
-          <div className="mb-6">
+          <div >
             <label htmlFor="cert">
               {" "}
               <strong>Certification</strong>
@@ -245,8 +240,8 @@ const [formData, setFormData] = useState({
               id="cars"
               onChange={handleChange}
               name="cert"
-            //   value={formData.cert}
-              className="form-control rounded-4"
+              //   value={formData.cert}
+              className="form-control rounded-2"
             >
               <option value="5">5</option>
               <option value="4">4</option>
@@ -262,14 +257,16 @@ const [formData, setFormData] = useState({
             </select>
           </div>
           <div>
-            <br />
-            <button type="submit" className="btn btn-success w-100 rounded-4">
+            <button type="submit" className="btn btn-success w-100 rounded-2">
               <strong>Submit</strong>
             </button>
           </div>
+
+          </div>
+          {/*  */}
         </form>
       </div>
-    </div>
+    // </div>
   );
 }
 

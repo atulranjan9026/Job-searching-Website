@@ -1,11 +1,16 @@
+.result{
+  padding-top: 100px;
+  height: 220vh;
+ justify-content: center;
+ display: flex;
+}
 .cards{
-    display: flex;
-    justify-content: center;
-    flex-flow: row wrap;
-    max-width: 1300px;
-    margin: 0 auto;
-  }
-  .card{
+  display: flex;
+  justify-content: center;
+  flex-flow: row wrap;
+  max-width: 1300px;
+}
+.card{
     width: 400px;
     height: max-content;
     margin: 1rem;
@@ -18,9 +23,9 @@
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   }
   .image{
-    width: 300px;
+    /* width: 300px; */
     aspect-ratio: 1/1;
-    object-fit: cover;
+    /* object-fit: cover; */
   }
   
   .tourInfo{

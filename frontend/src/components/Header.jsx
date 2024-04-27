@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { NavLink, Link } from "react-router-dom";
+import { NavLink, Link, useNavigate, Router, useNavigation } from "react-router-dom";
 import "./Header.css";
 
 function formatImage(buffer) {
@@ -12,7 +12,14 @@ const Header = () => {
   const [searchText, setSearchText] = useState("");
   const [searchResults, setSearchResults] = useState([]);
 
-  console.log(searchResults);
+  const router = useNavigate()
+
+  const navigateToPage = (id)=>{
+    setSearchText("")
+    router(`/personDetails/${id}`)
+  }
+
+  // console.log(searchResults);
 
   const handleInputChange = (e) => {
     setSearchText(e.target.value);
@@ -21,6 +28,10 @@ const Header = () => {
   const handleSubmit = () => {
     alert("Logout");
   };
+  // const handleBookClick = (userId) => {
+  //   console.log("Book clicked for user:", userId);
+  //   alert("Book clicked for user:", userId);
+  // };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -64,49 +75,18 @@ const Header = () => {
               onChange={handleInputChange}
             />
           </div>
-          {searchText && (
-            <div className="findData">
-              <div className="cards">
-                {searchResults.map((user) => (
-                  <div key={user.id}>
-                    <div className="card">
-                      <img
-                        src={formatImage(user.image?.data)}
-                        className="image"
-                        alt="img"
-                      />
-                      <div className="tourDetails">
-                        <h4 className="tourPrice">ID: {user.id}</h4>
-                        <h4 className="tourPrice">Name: {user.name}</h4>
-                        <h4 className="tourName">Salary: {user.salary}</h4>
-                        <h4 className="tourName">Mobile: {user.mobile}</h4>
-                        <h4 className="tourName">Email: {user.email}</h4>
-                        <h4 className="tourName">Exp: {user.exp}</h4>
-                        <h4 className="tourName">Cert: {user.cert}</h4>
-                      </div>
-                      <Link
-                        to="/order"
-                        className="btn btn-success w-100 rounded-4 "
-                      >
-                        <strong>BOOK</strong>
-                      </Link>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
+
           <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
             <li className="nav-item">
               <NavLink to="/" className="nav-link ">
                 Home
               </NavLink>
             </li>
-            <li className="nav-item">
+            {/* <li className="nav-item">
               <NavLink to="/" className="nav-link">
                 Register
               </NavLink>
-            </li>
+            </li> */}
             <li className="nav-item">
               <NavLink to="/" onClick={handleSubmit} className="nav-link">
                 Logout
@@ -114,6 +94,36 @@ const Header = () => {
             </li>
           </ul>
         </div>
+        {searchText && (
+          <div className="findData">
+            <div className="cards">
+              {searchResults.map((user) => (
+                <div key={user.id}>
+                  <div className="card">
+                    <img
+                      src={formatImage(user.image?.data)}
+                      className="image"
+                      alt="img"
+                    />
+                    <div className="tourDetails">
+                      <h4 className="tourPrice">ID: {user.id}</h4>
+                      <h4 className="tourPrice">Name: {user.name}</h4>
+                      <h4 className="tourName">Salary: {user.salary}</h4>
+                      <h4 className="tourName">Exp: {user.exp}</h4>
+                      <h4 className="tourName">Cert: {user.cert}</h4>
+                    </div>
+                    <button 
+                      onClick={() => navigateToPage(user.id)}
+                      className="btn btn-success w-100 rounded-4 "
+                    >
+                      <strong>BOOK </strong>
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
       </nav>
     </>
   );

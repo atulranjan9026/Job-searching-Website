@@ -1,36 +1,52 @@
+.seekerDr {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80vh;
+}
 
-.seeker{
-    margin-top: 4%;
-     width: 100%;
-     padding: 25px;
-     display: flex;
-     justify-content: center;
-     align-items: center;
-     flex-direction: column;
-     font-family: Arial, sans-serif;
+.formDrs{
+    display: flex;
+    width: 100%;
+    /* max-width: 1250px; */
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+    color: black;
+    padding: 40px;
+    box-shadow: inset;
+    box-shadow: rgba(12, 218, 56, 0.35) 0px 5px 15px;
+    margin-top: 40px;
+}
+.formDrs:hover {
+    transform: scale(1.05);
+    transition: all 0.3s ease-in-out;
+}
+.formDrs div{
+    justify-content: space-between;
+    margin-right:  10px;
+    padding: 10px;
+}
+.point2 {
+    display: flex;
+    justify-content:space-between;
+    width: 100%;
+    box-shadow: rgba(240, 110, 35, 0.35) 0px 5px 15px;
+    margin-top: 40px;
+}
+.point2 div{
+    justify-content: space-between;
+    margin-right:  10px;
+    padding: 10px;
+    width: 200px;
+}
+
+@media screen and (max-width: 900px) {
+    .seekerDr {
+        flex-direction: column;
+        align-items: center;
     }
-    
-    label{                  
-        font-size: 16px;
-    }   
-    
-    #submit{               
-        cursor: pointer;
-        background-color: #4CAF50;
-        /* Green */
-        border: none;
-        color: white;
-        padding: 16px 32px;
-        text-align: center;
-        text-decoration: none;
-        display: inline-block;
-        font-size: 16px;
-        transition: background-color 0.3s;
+    .writeus-container,
+    .point {
+        width: 100%;
     }
-    
-    #submit:hover {                 /* Add a hover effect to the submit button */
-        background-color: #45a049; /* Dark green */
-    }   
-                     
-    
-    
+}

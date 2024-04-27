@@ -9,7 +9,7 @@ const firstPage = () => {
     <div>
       <div className="container">
         <div className="formDiv">
-          <Link to="/signupSeeker" className="seeker-btn">
+          <Link to="/loginSeeker" className="seeker-btn">
             <img src={Workers} alt="img" />
             <strong>SEEKER</strong>
           </Link>

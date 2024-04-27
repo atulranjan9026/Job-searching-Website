@@ -38,7 +38,7 @@ function signupSeeker() {
   };
 
   return (
-    <div className="d-flex justify-content-center align-items-center bg-primary vh-100">
+    <div className="d-flex justify-content-center align-items-center bg-info vh-100">
       <div className="bg-white p-3 rounded w-25">
         <h2>Sign-Up</h2>
         <form action="/login" onSubmit={handleSubmit}>
@@ -92,7 +92,7 @@ function signupSeeker() {
           <p>You are agree to our terms and policies</p>
           <Link
             to="/loginSeeker"
-            className="btn btn-default border w-100 bg-light rounded-0 text-decoration-none"
+            className="btn btn-default border w-100 bg-danger rounded-0 text-decoration-none"
           >
             Login
           </Link>

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Result from "./result";
 import "./Form.css";
-import axios from 'axios';
+import axios from "axios";
 
 // Function to calculate Euclidean distance between two points
 function euclideanDistance(point1, point2) {
@@ -58,7 +58,7 @@ function knn(dataknn, queryPoint, k, setDistances) {
 }
 
 // Example KNNApp component
-function KNNApp({moveToResultPage}) {
+function KNNApp({ moveToResultPage }) {
   // Sample data
   const [dataknn, setDataknn] = useState([]);
 
@@ -89,7 +89,7 @@ function KNNApp({moveToResultPage}) {
 
     // navigate("/result");
     console.log("ids :", ids);
-    moveToResultPage(ids)
+    moveToResultPage(ids);
   };
 
   const getSalaryIdx = (salary) => {
@@ -133,7 +133,7 @@ function KNNApp({moveToResultPage}) {
   });
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value }); 
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const [queryPoint, setQueryPoint] = useState([0, 0, 0, 0]);
@@ -245,178 +245,171 @@ function KNNApp({moveToResultPage}) {
     }
   };
 
-
   return (
-    <div>
-      <div className="formDiv">
-        <div className="">
-          <form className="form" onSubmit={handleSubmit}>
-           
-            <div className="location">
-              <label htmlFor="location">
-                <strong>Location</strong>
-              </label>
-              <select
-                id="cars"
-                onChange={handleChange}
-                name="location"
-                value={formData.location}
-                className="form-control rounded-4"
-              >
-                <option value="Aizawl">Aizawl</option>
-                <option value="silchar">Silchar</option>
-                <option value="Guwahati">Guwahati</option>
-                <option value="kohima" selected>
-                  Kohima
-                </option>
-                <option value="Kolkata" selected>
-                 
-                  Kolkata
-                </option>
-                <option value="" selected>
-               
-                  Choose a Location
-                </option>
-              </select>
-            </div>
+      <div className="formDetails">
+        <form className="form" onSubmit={handleSubmit}>
+          <div className="location">
+            <label htmlFor="location">
+              <strong>Location</strong>
+            </label>
+            <select
+              id="cars"
+              onChange={handleChange}
+              name="location"
+              value={formData.location}
+              className="form-control rounded-4"
+            >
+              <option value="Aizawl">Aizawl</option>
+              <option value="silchar">Silchar</option>
+              <option value="Guwahati">Guwahati</option>
+              <option value="kohima" selected>
+                Kohima
+              </option>
+              <option value="Kolkata" selected>
+                Kolkata
+              </option>
+              <option value="" selected>
+                Choose a Location
+              </option>
+            </select>
+          </div>
 
-            <div className="salary">
-              <label htmlFor="salary">
-                {" "}
-                <strong>Salary</strong>
-              </label>
-              <input
-                type="number"
-                name="salary"
-                value={formData.salary}
-                onChange={handleChange}
-                className="form-control rounded-4"
-              />
-            </div>
-            <div className="skill">
-              <label htmlFor="skill">
-                {" "}
-                <strong>Skill </strong>
-              </label>
-
-              <select
-                id="cars"
-                onChange={handleChange}
-                name="skill"
-                value={formData.skill}
-                className="form-control rounded-4"
-              >
-                <option value="Painter">Painter</option>
-                <option value="Gardener">Gardener</option>
-                <option value="Cook">Cook</option>
-                <option value="Driver">Driver</option>
-                <option value="Electrician" selected>
-                  Electrician
-                </option>
-
-                <option value="" selected>
-                  Choose a Skill
-                </option>
-              </select>
-            </div>
-            <div className="exp">
-              <label htmlFor="exp">
-                {" "}
-                <strong>Experience</strong>
-              </label>
-
-              <select
-                id="cars"
-                onChange={handleChange}
-                name="exp"
-                value={formData.exp}
-                className="form-control rounded-4"
-              >
-                <option value="10">10</option>
-                <option value="9">9</option>
-                <option value="8">8</option>
-                <option value="7">7</option>
-                <option value="6">6</option>
-                <option value="5">5</option>
-                <option value="4">4</option>
-                <option value="3">3</option>
-                <option value="2">2</option>
-                <option value="1" selected>
-                  1
-                </option>
-
-                <option value="" selected>
-                  Choose a Experience
-                </option>
-              </select>
-            </div>
-            <div className="cert">
-              <label htmlFor="cert">
-               
-                <strong>Certification</strong>
-              </label>
-
-              <select
-                id="cars"
-                onChange={handleChange}
-                name="cert"
-                value={formData.cert}
-                className="form-control rounded-4"
-              >
-                <option value="5">5</option>
-                <option value="4">4</option>
-                <option value="3">3</option>
-                <option value="2">2</option>
-                <option value="1" selected>
-                  1
-                </option>
-
-                <option value="" selected>
-                  Choose a Certification
-                </option>
-              </select>
-            </div>
-            <div>
-              <br />
-              <button type="submit" className="btn btn-success  rounded-4">
-                <strong>Submit</strong>
-              </button>
-            </div>
-          </form>
-
-          <div className="runcss">
-            <label>Query Point:</label>
+          <div className="salary">
+            <label htmlFor="salary">
+              {" "}
+              <strong>Salary</strong>
+            </label>
             <input
-              type="text"
-              value={queryPoint.join(",")}
+              type="number"
+              name="salary"
+              value={formData.salary}
+              onChange={handleChange}
               className="form-control rounded-4"
             />
-            <div>
-             
-              <p>{result}</p>
-            </div>
-            <button
-              onClick={handleKNN}
-              className="btn btn-default border w-100 bg-light rounded-4 text-decoration-none"
+          </div>
+          <div className="skill">
+            <label htmlFor="skill">
+              {" "}
+              <strong>Skill </strong>
+            </label>
+
+            <select
+              id="cars"
+              onChange={handleChange}
+              name="skill"
+              value={formData.skill}
+              className="form-control rounded-4"
             >
-              Run KNN
+              <option value="Painter">Painter</option>
+              <option value="Gardener">Gardener</option>
+              <option value="Cook">Cook</option>
+              <option value="Driver">Driver</option>
+              <option value="Electrician" selected>
+                Electrician
+              </option>
+
+              <option value="" selected>
+                Choose a Skill
+              </option>
+            </select>
+          </div>
+          <div className="exp">
+            <label htmlFor="exp">
+              {" "}
+              <strong>Experience</strong>
+            </label>
+
+            <select
+              id="cars"
+              onChange={handleChange}
+              name="exp"
+              value={formData.exp}
+              className="form-control rounded-4"
+            >
+              <option value="10">10</option>
+              <option value="9">9</option>
+              <option value="8">8</option>
+              <option value="7">7</option>
+              <option value="6">6</option>
+              <option value="5">5</option>
+              <option value="4">4</option>
+              <option value="3">3</option>
+              <option value="2">2</option>
+              <option value="1" selected>
+                1
+              </option>
+
+              <option value="" selected>
+                Choose a Experience
+              </option>
+            </select>
+          </div>
+          <div className="cert">
+            <label htmlFor="cert">
+              <strong>Certification</strong>
+            </label>
+
+            <select
+              id="cars"
+              onChange={handleChange}
+              name="cert"
+              value={formData.cert}
+              className="form-control rounded-4"
+            >
+              <option value="5">5</option>
+              <option value="4">4</option>
+              <option value="3">3</option>
+              <option value="2">2</option>
+              <option value="1" selected>
+                1
+              </option>
+
+              <option value="" selected>
+                Choose a Certification
+              </option>
+            </select>
+          </div>
+          <div>
+            <br />
+            <button type="submit" className="btn btn-success  rounded-4">
+              <strong>Submit</strong>
             </button>
-            <div>
+          </div>
+        </form>
+  <div className="point" >
+               <div className="runcss">
+                 <label>Query Point:</label>
+                 <input
+                   type="text"
+            value={queryPoint.join(",")}
+            className="form-control rounded-4"
+                  />
+                <div>
+                       <p>{result}</p>
+                </div>
+
+                    <div class="runcss">
+                      <button
+                         onClick={handleKNN}
+              className="btn   rounded-4"
+                         >
+                                Run KNN
+                      </button>
+                    <div>
+                    
               <p>Distances to all points in ascending order:</p>
               <ul>
                 {distances.map((pair, index) => (
                   <li
                     key={index}
-                  >{`Distance: ${pair.distance}, ID: ${pair.point.label}`}</li>,
-                  <Result key={pair.distance} pair={pair.point.label} showForm={showForm}/>
+                  >{`Distance: ${pair.distance}, ID: ${pair.point.label}`}</li>
                 ))}
               </ul>
             </div>
           </div>
+          </div>
         </div>
       </div>
-      {/* <Result /> */}
-    </div>
   );
 }
 

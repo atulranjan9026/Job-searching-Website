@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from 'axios';
-import { Link , useNavigate } from "react-router-dom";
+import { NavLink, Link, useNavigate, Router, useNavigation } from "react-router-dom";
 import "./result.css"
 import  Form  from  "./Form";
 
@@ -12,42 +12,42 @@ function formatImage(buffer) {
 
 const Result = ({ data }) => {
   const [userData, setUserData] = useState([]);
+
   console.log("data", data)
+
+  const router = useNavigate();
+  
+  const navigateToDetailsPage = (id) => {
+    setUserData("")
+    router(`/personDetails/${id}`);
+  }
 
   useEffect(() => {
     const fetchData = async () => {
-      if(!data)
-      return 
+      if (!data) return;
       try {
-        // Placeholder for mostCommonClass and ids
         const mostCommonClass = "your_most_common_class";
+        const ids = data;
 
-        const ids = data; // Replace with your actual IDs
-
-        const responseId = await fetch("http://localhost:5000/resultData", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ id: mostCommonClass, ids }),
+        const responseId = await axios.post("http://localhost:5000/resultData", {
+          id: mostCommonClass,
+          ids
         });
 
-        const dataId = await responseId.json();
+        const dataId = responseId.data;
         console.log("resultData :", dataId[0], dataId[0].name);
 
-        // Update state with the fetched data
         setUserData(dataId);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
     };
 
-    // Call the async function inside useEffect
     fetchData();
-  }, []); // Empty dependency array since we don't have any dependencies
+  }, [data]);
 
   return (
-    <div>
+    <div className="result">
       <div className="cards">
         {userData.map((user) => (
           <div key={user.name}>
@@ -57,17 +57,12 @@ const Result = ({ data }) => {
                 <h4 className="tourPrice">ID: {user.id}</h4>
                 <h4 className="tourPrice">Name: {user.name}</h4>
                 <h4 className="tourName">Salary: {user.salary}</h4>
-                <h4 className="tourName">Mobile: {user.mobile}</h4>
-                <h4 className="tourName">Email: {user.email}</h4>
                 <h4 className="tourName">Exp: {user.exp}</h4>
                 <h4 className="tourName">Cert: {user.cert}</h4>
               </div>
-              <Link
-            to="/order"
-            className="btn btn-success w-100 rounded-4 "
-          >
-            <strong>BOOK</strong>
-          </Link>
+              <button onClick={() => navigateToDetailsPage(user.id)} className="btn btn-success w-100 rounded-4 ">
+                <strong>BOOK </strong>
+              </button>
             </div>
           </div>
         ))}
@@ -77,4 +72,3 @@ const Result = ({ data }) => {
 };
 
 export default Result;
-

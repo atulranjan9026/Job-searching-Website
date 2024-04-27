@@ -11,6 +11,9 @@ import { createBrowserRouter, RouterProvider,Outlet } from 'react-router-dom'
 import Header from './components/Header';
 import Footer from './components/Footer';
 import About from "./pages/About"
+import Contact from "./pages/Contact"
+import Policy from "./pages/Policy"
+import PersonDetails from "./usersPage/PersonDetails/PersonDetails"
 
 const AppLayout =()=>{
   return(<>
@@ -32,6 +35,9 @@ const appRouter = createBrowserRouter([
         { path:'/signup' ,element:<Signup />,},              
         { path:'/seeker' ,element:<Seeker />,},           
         { path:'/about' ,element:<About />,},           
+        { path:'/policy' ,element:<Policy />,},           
+        { path:'/contact' ,element:<Contact />,},           
+        { path:'/personDetails/:id' ,element:<PersonDetails />,},           
         { path:'/signupSeeker' ,element:<SignupSeeker />,},           
         { path:'/loginSeeker' ,element:<LoginSeeker />,}  
       ],        

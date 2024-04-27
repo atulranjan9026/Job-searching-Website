@@ -49,7 +49,7 @@ function Login() {
     // className="d-flex justify-content-center align-items-center bg-primary"
     >
       <div className="bg-white p-3 rounded w-25">
-        <h2>Sing-In</h2>{" "}
+        <h2>Sign-In</h2>{" "}
         {backendError ? (
           backendError.map((e) => <p className="text-danger">{e.msg}</p>)
         ) : (
@@ -93,7 +93,7 @@ function Login() {
           <p>You are agree to aour terms and policies</p>
           <Link
             to="/signup"
-            className="btn btn-default border w-100 bg-light rounded-0 text-decoration-none"
+            className="btn btn-default border w-100 bg-danger rounded-0 text-decoration-none"
           >
             Create Account
           </Link>

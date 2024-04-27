@@ -42,7 +42,7 @@ function Login() {
     }
   };
   return (
-    <div className="d-flex justify-content-center align-items-center bg-primary vh-100">
+    <div className="d-flex justify-content-center align-items-center bg-info vh-100">
       <div className="bg-white p-3 rounded w-25">
         <h2>Sing-In</h2>{" "}
         {backendError ? (
@@ -88,7 +88,7 @@ function Login() {
           <p>You are agree to aour terms and policies</p>
           <Link
             to="/signupSeeker"
-            className="btn btn-default border w-100 bg-light rounded-0 text-decoration-none"
+            className="btn btn-default border w-100 bg-danger rounded-0 text-decoration-none"
           >
             Create Account
           </Link>
