@@ -1,15 +1,14 @@
+import axios from "axios";
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import Validation from './SignupValidation';
+import Validation from './LoginValidation';
 import "./Login.css"
-import Header from "../../components/Header";
-import axios from "axios";
-import Footer from "../../components/Footer";
 
-function Signup() {
-  const [values, setValues] = useState({ name: "", email: "", password: "" });
+function Login() {
+  const [values, setValues] = useState({ email: "", password: "" });
   const navigate = useNavigate();
   const [errors, setErrors] = useState({});
+  const [backendError, setBackendError] = useState([]);
 
   const handleInput = (event) => {
     setValues((prev) => ({
@@ -17,7 +16,6 @@ function Signup() {
       [event.target.name]: event.target.value,
     }));
   };
-  
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -25,41 +23,39 @@ function Signup() {
     setErrors(err);
     console.log(values);
 
-    try {
-        const response = await axios.post("http://localhost:5000/minidbnew", values);
-       
-        // Assuming your server responds with a 'result' property
-        console.log("response.data.result :",response.data);
-        navigate("/login");
-      // }
-  
-    } catch (error) {
-      console.error("Error submitting data:", error);
+    if (err.email === "" && err.password === "") {
+      axios
+  .post("http://localhost:5000/userlogin", values)
+        .then((res) => {
+          if (res.data.errors) {
+            setBackendError(res.data.errors);
+            console.log(setBackendError)
+          } else {
+            setBackendError([]);
+            if (res.data === "Success") {
+              navigate("/form");
+            } else {
+              alert("No record existed");
+            }
+          }
+        })
+        .catch((err) => console.log(err));
     }
-  };
-
+  }
   return (
     <div className="login" > 
-    <div>
-      <Header/>
-    </div>
-    <div className="Signup">
+    <div 
+    className="logincss"
+    // className="d-flex justify-content-center align-items-center bg-primary"
+    >
       <div className="bg-white p-3 rounded w-25">
-        <h2>Sign-Up</h2>
-        <form action="/login" onSubmit={handleSubmit}>
-          <div className="mb-3">
-            <label htmlFor="name">
-              <strong>Name</strong>
-            </label>
-            <input
-              type="text"
-              placeholder="Enter Name"
-              name="name"
-              onChange={handleInput}
-              className="form-control rounded-0"
-            />{" "}
-            {errors.name && <span className="text-danger"> {errors.name}</span>}
-          </div>
+        <h2>Sing-In</h2>{" "}
+        {backendError ? (
+          backendError.map((e) => <p className="text-danger">{e.msg}</p>)
+        ) : (
+          <span></span>
+        )}
+        <form action="/" onSubmit={handleSubmit}>
           <div className="mb-3">
             <label htmlFor="email">
               <strong>Email</strong>
@@ -70,7 +66,7 @@ function Signup() {
               name="email"
               onChange={handleInput}
               className="form-control rounded-0"
-            />{" "}
+            />
             {errors.email && (
               <span className="text-danger"> {errors.email}</span>
             )}
@@ -92,22 +88,19 @@ function Signup() {
           </div>
           <button type="submit" className="btn btn-success w-100 rounded-0">
             {" "}
-            Sign up
-          </button>{" "}
+            Log in
+          </button>
           <p>You are agree to aour terms and policies</p>
           <Link
-            to="/login"
+            to="/signup"
             className="btn btn-default border w-100 bg-light rounded-0 text-decoration-none"
           >
-            Login
+            Create Account
           </Link>
         </form>
       </div>
       </div>
-<div className="loginF">
-      <Footer />
-</div>
     </div>
   );
 }
-export default Signup;
+export default Login;

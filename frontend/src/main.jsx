@@ -1,13 +1,47 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import App from './App.jsx'
-import './index.css'
-import {BrowserRouter} from 'react-router-dom'
+import Form from './usersPage/homePages/new';
+import Login  from './usersPage/Auth/Login';
+import Signup from './usersPage/Auth/Signup';
+import Seeker from './seeker/seeker';
+import FirstPage from './firstPage/firstPage';
+import SignupSeeker from './seeker/signupSeeker';
+import LoginSeeker from './seeker/loginSeeker';
+import { createBrowserRouter, RouterProvider,Outlet } from 'react-router-dom'
+import Header from './components/Header';
+import Footer from './components/Footer';
+import About from "./pages/About"
 
-ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
-   <BrowserRouter> 
-  <App />
-  </BrowserRouter>
-  </React.StrictMode>,
-)
+const AppLayout =()=>{
+  return(<>
+  <Header/>
+  <Outlet/>
+  <Footer/>
+  </>
+  );
+};
+
+const appRouter = createBrowserRouter([
+  { 
+    path:"/",
+    element:<AppLayout/>,
+    children:[
+        { path:'/' ,element:<FirstPage />,},
+        { path:'/form' ,element:<Form/>,},
+        { path:'/login' ,element:<Login />,},
+        { path:'/signup' ,element:<Signup />,},              
+        { path:'/seeker' ,element:<Seeker />,},           
+        { path:'/about' ,element:<About />,},           
+        { path:'/signupSeeker' ,element:<SignupSeeker />,},           
+        { path:'/loginSeeker' ,element:<LoginSeeker />,}  
+      ],        
+    },
+  ]);
+
+  const root = ReactDOM.createRoot(document.getElementById("root"));
+
+  root.render(
+    <RouterProvider router={appRouter}>
+      <AppLayout />
+    </RouterProvider>
+  );

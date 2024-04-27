@@ -1,25 +1,28 @@
 import React, { useEffect, useState } from "react";
-import "../../styles/AuthStyles.css";
-import "./Home.css";
 import axios from 'axios';
 import { Link , useNavigate } from "react-router-dom";
+import "./result.css"
+import  Form  from  "./Form";
 
-// Define the formatImage function
 function formatImage(buffer) {
   return `data:image/png;base64,${btoa(
     String.fromCharCode(...new Uint8Array(buffer))
   )}`;
 }
 
-const Result = () => {
-  const [idData, setIdData] = useState([]);
+const Result = ({ data }) => {
+  const [userData, setUserData] = useState([]);
+  console.log("data", data)
 
   useEffect(() => {
     const fetchData = async () => {
+      if(!data)
+      return 
       try {
         // Placeholder for mostCommonClass and ids
         const mostCommonClass = "your_most_common_class";
-        const ids = [1, 2, 3]; // Replace with your actual IDs
+
+        const ids = data; // Replace with your actual IDs
 
         const responseId = await fetch("http://localhost:5000/resultData", {
           method: "POST",
@@ -33,7 +36,7 @@ const Result = () => {
         console.log("resultData :", dataId[0], dataId[0].name);
 
         // Update state with the fetched data
-        setIdData(dataId);
+        setUserData(dataId);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -46,10 +49,10 @@ const Result = () => {
   return (
     <div>
       <div className="cards">
-        {idData.map((user) => (
+        {userData.map((user) => (
           <div key={user.name}>
             <div className="card">
-              <img src={formatImage(user.image.data)} className="image" alt="img" />
+              <img src={formatImage(user.image?.data)} className="image" alt="img" />
               <div className="tourDetails">
                 <h4 className="tourPrice">ID: {user.id}</h4>
                 <h4 className="tourPrice">Name: {user.name}</h4>
@@ -74,3 +77,4 @@ const Result = () => {
 };
 
 export default Result;
+

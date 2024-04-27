@@ -2,7 +2,7 @@
     background-color: aqua;
   }
 
-  .maincss{
+  .logincss{
     display: flex;  
      justify-content: center;  
     align-items: center;
@@ -17,8 +17,4 @@
     height: 82vh;
   }
 
-  /* .loginF{
-   justify-content: center;   
-    align-items: center; 
-   
-  } */
+ 

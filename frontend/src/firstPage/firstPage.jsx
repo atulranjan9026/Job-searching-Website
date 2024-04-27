@@ -3,13 +3,10 @@ import { Link, useNavigate } from "react-router-dom";
 import "./firstPage.css";
 import Workers from "./workers.png";
 import Profile from "./profile.png";
-import Footer from "../components/Footer";
-import Header from "../components/Header";
 
 const firstPage = () => {
   return (
     <div>
-    <Header/>
       <div className="container">
         <div className="formDiv">
           <Link to="/signupSeeker" className="seeker-btn">
@@ -24,7 +21,6 @@ const firstPage = () => {
           </Link>
         </div>
       </div>
-      <Footer />
     </div>
   );
 };

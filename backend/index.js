@@ -27,9 +27,6 @@ const db = mysql.createConnection({
   database: process.env.DB_DATABASE,
 });
 
-
-
-
 //signup  seeker
 app.post("/minidbnew", (req, res) => {
   if (req.body && req.body.name && req.body.email && req.body.password) {
@@ -53,27 +50,35 @@ app.post("/minidbnew", (req, res) => {
 // data seeker
 
 app.post("/ew", (req, res) => {
+  const { name, mobile, location, salary, email, skill, exp, cert, image } =
+    req.body;
+  const sql = `INSERT INTO seeker (name, location, salary , mobile , email ,skill,exp ,cert,image) VALUES (?, ?, ?,?, ?, ?, ?, ?,?)`;
 
-    const { name , mobile , location , salary ,  email , skill , exp , cert,image } = req.body;
-    const sql = `INSERT INTO seeker (name, location, salary , mobile , email ,skill,exp ,cert,image) VALUES (?, ?, ?,?, ?, ?, ?, ?,?)`;
-    
-    const values = [name, location, salary , mobile , email ,skill,exp ,cert,image];
-    console.log(values);
-    db.query(sql, values, (error, result) => {
-      if (error) {
-        console.error("Signup error:", error.message);
-        res
-          .status(500)
-          .json({ success: false, error: "Internal Server Error" });
-      } else {
-        res.status(200).json({ success: true, message: "Signup successful" });
-      }
-    });
-
+  const values = [
+    name,
+    location,
+    salary,
+    mobile,
+    email,
+    skill,
+    exp,
+    cert,
+    image,
+  ];
+  console.log(values);
+  db.query(sql, values, (error, result) => {
+    if (error) {
+      console.error("Signup error:", error.message);
+      res.status(500).json({ success: false, error: "Internal Server Error" });
+    } else {
+      res.status(200).json({ success: true, message: "Signup successful" });
+    }
+  });
 });
 
 // login seeker
-app.post("/seekerlogin",
+app.post(
+  "/seekerlogin",
   [
     check("email", "Emaill length error")
       .isEmail()
@@ -81,9 +86,8 @@ app.post("/seekerlogin",
     check("password", "password length 8-10").isLength({ min: 1, max: 10 }),
   ],
   (req, res) => {
-
     const sql = "SELECT * FROM seekerlogin WHERE email = ? AND password = ?";
-    
+
     db.query(sql, [req.body.email, req.body.password], (err, data) => {
       const errors = validationResult(req);
       if (!errors.isEmpty()) {
@@ -99,10 +103,8 @@ app.post("/seekerlogin",
         }
       }
     });
- 
   }
 );
-
 
 //login  user
 app.post("/minidbnew", (req, res) => {
@@ -126,7 +128,8 @@ app.post("/minidbnew", (req, res) => {
 
 //login  validations
 
-app.post("/userlogin",
+app.post(
+  "/userlogin",
   [
     check("email", "Emaill length error")
       .isEmail()
@@ -134,9 +137,8 @@ app.post("/userlogin",
     check("password", "password length 8-10").isLength({ min: 1, max: 10 }),
   ],
   (req, res) => {
-
     const sql = "SELECT * FROM userlogin WHERE email = ? AND password = ?";
-    
+
     db.query(sql, [req.body.email, req.body.password], (err, data) => {
       const errors = validationResult(req);
       if (!errors.isEmpty()) {
@@ -152,7 +154,6 @@ app.post("/userlogin",
         }
       }
     });
- 
   }
 );
 
@@ -164,10 +165,6 @@ db.connect((err) => {
     console.log("Connected to MySQL database");
   }
 });
-
-
-
-
 
 app.post("/search", (req, res) => {
   const { location } = req.body;
@@ -218,7 +215,6 @@ app.post("/data", async (req, res) => {
 
 app.post("/resultData", (req, res) => {
   const { id, ids } = req.body;
-
   // Construct and execute the SQL query
   let sql = `SELECT * FROM seeker WHERE id IN (`;
 
@@ -234,6 +230,25 @@ app.post("/resultData", (req, res) => {
     } else {
       res.json(result);
     }
+  });
+});
+
+app.post("/Text", (req, res) => {
+  const {names} = req.body;
+  let sql =
+    `SELECT name,id,
+    salary,
+    mobile,
+    email,
+    exp,
+    cert,
+    image, levenshtein_search("${names}", name) AS similarity FROM seeker ORDER BY similarity`;
+    console.log("sql :", sql);
+  db.query(sql, (err, data) => {
+    // console.log('sql data :', data)
+    if (err) return res.json(err);
+    return res.json(data);
+    //  console.log(data)
   });
 });
 

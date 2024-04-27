@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import "../../styles/AuthStyles.css";
-import "./Home.css";
-import axios from "axios";
-import { Link , useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import Result from "./result";
+import "./Form.css";
+import axios from 'axios';
 
 // Function to calculate Euclidean distance between two points
 function euclideanDistance(point1, point2) {
@@ -58,7 +58,7 @@ function knn(dataknn, queryPoint, k, setDistances) {
 }
 
 // Example KNNApp component
-function KNNApp() {
+function KNNApp({moveToResultPage}) {
   // Sample data
   const [dataknn, setDataknn] = useState([]);
 
@@ -67,10 +67,8 @@ function KNNApp() {
   const [result, setResult] = useState("");
   const [distances, setDistances] = useState([]);
   const [routes, setRoutes] = useState([]);
-  const [salary, setSalary] = useState();
-  const [dataKnnState, setDataKNNState] = useState([]);
+  const [showForm, setShowForm] = useState(false);
 
-  // const [idData, setIdData] = useState([]);
   const navigate = useNavigate();
 
   // Function to handle the KNN calculation on button click
@@ -88,9 +86,10 @@ function KNNApp() {
     distances.forEach((item) => {
       ids.push(item.point.label);
     });
-    
-    navigate("/result");
+
+    // navigate("/result");
     console.log("ids :", ids);
+    moveToResultPage(ids)
   };
 
   const getSalaryIdx = (salary) => {
@@ -134,7 +133,7 @@ function KNNApp() {
   });
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    setFormData({ ...formData, [e.target.name]: e.target.value }); 
   };
 
   const [queryPoint, setQueryPoint] = useState([0, 0, 0, 0]);
@@ -189,21 +188,17 @@ function KNNApp() {
           const exp = seData.exp;
           const cert = seData.cert;
           const id = seData.id;
-
           final.push({ features: [distance, salary, exp, cert], label: id });
         });
 
         console.log("final DATA :", final);
         setDataknn(final);
-
         setData(final);
-
         setData(result);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
     };
-
     fetchData();
 
     // Make a POST request to your backend API to save the form data to the database
@@ -215,7 +210,6 @@ function KNNApp() {
         },
         body: JSON.stringify(formData),
       });
-
       const data = await response.json();
       // console.log("Form submitted successfully:", data);
 
@@ -226,20 +220,16 @@ function KNNApp() {
         },
         body: JSON.stringify(formData),
       });
-
       const data2 = await response2.json();
       // console.log("Form submitted successfully:", data2);
-
       const arr = [];
       data2.forEach((item) => {
         const distance = getDistance(item.distance);
         arr.push({ location: item.loca2, distance: distance });
       });
-
       console.log("distances :", arr);
 
       // Seeker table data
-
       const response3 = await fetch("http://localhost:5000/seeker", {
         method: "POST",
         headers: {
@@ -249,189 +239,183 @@ function KNNApp() {
       });
       const data3 = await response3.json();
       // console.log("Form submitted successfully:", data3);
-
       setRoutes(data2);
     } catch (error) {
       console.error("Error submitting form:", error);
     }
   };
 
+
   return (
-    <div className="formDiv">
-      <div className="">
-        <form className="form" onSubmit={handleSubmit}>
-          {/* <div className="mb-6">
-                <label htmlFor="username">
-                  <strong>Name</strong>
-                </label>
-                <input
-                  type="text"
-                  name="username"
-                  value={formData.username}
-                  onChange={handleChange}
-                  className="form-control rounded-4"
-                />
-              </div> */}
-          <div className="mb-6">
-            <label htmlFor="location">
-              <strong>Location</strong>
-            </label>
-            <select
-              id="cars"
-              onChange={handleChange}
-              name="location"
-              value={formData.location}
-              className="form-control rounded-4"
-            >
-              <option value="Aizawl">Aizawl</option>
-              <option value="silchar">Silchar</option>
-              <option value="Guwahati">Guwahati</option>
-              <option value="kohima" selected>
-                Kohima
-              </option>
-              <option value="Kolkata" selected>
+    <div>
+      <div className="formDiv">
+        <div className="">
+          <form className="form" onSubmit={handleSubmit}>
+           
+            <div className="location">
+              <label htmlFor="location">
+                <strong>Location</strong>
+              </label>
+              <select
+                id="cars"
+                onChange={handleChange}
+                name="location"
+                value={formData.location}
+                className="form-control rounded-4"
+              >
+                <option value="Aizawl">Aizawl</option>
+                <option value="silchar">Silchar</option>
+                <option value="Guwahati">Guwahati</option>
+                <option value="kohima" selected>
+                  Kohima
+                </option>
+                <option value="Kolkata" selected>
+                 
+                  Kolkata
+                </option>
+                <option value="" selected>
+               
+                  Choose a Location
+                </option>
+              </select>
+            </div>
+
+            <div className="salary">
+              <label htmlFor="salary">
                 {" "}
-                Kolkata{" "}
-              </option>
-              <option value="" selected>
+                <strong>Salary</strong>
+              </label>
+              <input
+                type="number"
+                name="salary"
+                value={formData.salary}
+                onChange={handleChange}
+                className="form-control rounded-4"
+              />
+            </div>
+            <div className="skill">
+              <label htmlFor="skill">
                 {" "}
-                Choose a Location{" "}
-              </option>
-            </select>
-          </div>{" "}
-          <div className="mb-6">
-            <label htmlFor="salary">
-              {" "}
-              <strong>Salary</strong>
-            </label>
+                <strong>Skill </strong>
+              </label>
+
+              <select
+                id="cars"
+                onChange={handleChange}
+                name="skill"
+                value={formData.skill}
+                className="form-control rounded-4"
+              >
+                <option value="Painter">Painter</option>
+                <option value="Gardener">Gardener</option>
+                <option value="Cook">Cook</option>
+                <option value="Driver">Driver</option>
+                <option value="Electrician" selected>
+                  Electrician
+                </option>
+
+                <option value="" selected>
+                  Choose a Skill
+                </option>
+              </select>
+            </div>
+            <div className="exp">
+              <label htmlFor="exp">
+                {" "}
+                <strong>Experience</strong>
+              </label>
+
+              <select
+                id="cars"
+                onChange={handleChange}
+                name="exp"
+                value={formData.exp}
+                className="form-control rounded-4"
+              >
+                <option value="10">10</option>
+                <option value="9">9</option>
+                <option value="8">8</option>
+                <option value="7">7</option>
+                <option value="6">6</option>
+                <option value="5">5</option>
+                <option value="4">4</option>
+                <option value="3">3</option>
+                <option value="2">2</option>
+                <option value="1" selected>
+                  1
+                </option>
+
+                <option value="" selected>
+                  Choose a Experience
+                </option>
+              </select>
+            </div>
+            <div className="cert">
+              <label htmlFor="cert">
+               
+                <strong>Certification</strong>
+              </label>
+
+              <select
+                id="cars"
+                onChange={handleChange}
+                name="cert"
+                value={formData.cert}
+                className="form-control rounded-4"
+              >
+                <option value="5">5</option>
+                <option value="4">4</option>
+                <option value="3">3</option>
+                <option value="2">2</option>
+                <option value="1" selected>
+                  1
+                </option>
+
+                <option value="" selected>
+                  Choose a Certification
+                </option>
+              </select>
+            </div>
+            <div>
+              <br />
+              <button type="submit" className="btn btn-success  rounded-4">
+                <strong>Submit</strong>
+              </button>
+            </div>
+          </form>
+
+          <div className="runcss">
+            <label>Query Point:</label>
             <input
-              type="number"
-              name="salary"
-              value={formData.salary}
-              onChange={handleChange}
+              type="text"
+              value={queryPoint.join(",")}
               className="form-control rounded-4"
             />
-          </div>
-          <div className="mb-6">
-            <label htmlFor="skill">
-              {" "}
-              <strong>Skill </strong>
-            </label>
-
-            <select
-              id="cars"
-              onChange={handleChange}
-              name="skill"
-              value={formData.skill}
-              className="form-control rounded-4"
+            <div>
+             
+              <p>{result}</p>
+            </div>
+            <button
+              onClick={handleKNN}
+              className="btn btn-default border w-100 bg-light rounded-4 text-decoration-none"
             >
-              <option value="Painter">Painter</option>
-              <option value="Gardener">Gardener</option>
-              <option value="Cook">Cook</option>
-              <option value="Driver">Driver</option>
-              <option value="Electrician" selected>
-                Electrician
-              </option>
-
-              <option value="" selected>
-                Choose a Skill
-              </option>
-            </select>
-          </div>
-          <div className="mb-6">
-            <label htmlFor="exp">
-              {" "}
-              <strong>Experience</strong>
-            </label>
-
-            <select
-              id="cars"
-              onChange={handleChange}
-              name="exp"
-              value={formData.exp}
-              className="form-control rounded-4"
-            >
-              <option value="10">10</option>
-              <option value="9">9</option>
-              <option value="8">8</option>
-              <option value="7">7</option>
-              <option value="6">6</option>
-              <option value="5">5</option>
-              <option value="4">4</option>
-              <option value="3">3</option>
-              <option value="2">2</option>
-              <option value="1" selected>
-                1
-              </option>
-
-              <option value="" selected>
-                Choose a Experience
-              </option>
-            </select>
-          </div>
-          <div className="mb-6">
-            <label htmlFor="cert">
-              {" "}
-              <strong>Certification</strong>
-            </label>
-
-            <select
-              id="cars"
-              onChange={handleChange}
-              name="cert"
-              value={formData.cert}
-              className="form-control rounded-4"
-            >
-              <option value="5">5</option>
-              <option value="4">4</option>
-              <option value="3">3</option>
-              <option value="2">2</option>
-              <option value="1" selected>
-                1
-              </option>
-
-              <option value="" selected>
-                Choose a Certification
-              </option>
-            </select>
-          </div>
-          <div>
-            <br />
-            <button type="submit" className="btn btn-success w-100 rounded-4">
-              <strong>Submit</strong>
+              Run KNN
             </button>
-          </div>
-        </form>
-
-        <div>
-          <label>Query Point:</label>
-          <input
-            type="text"
-            value={queryPoint.join(",")}
-            className="form-control rounded-4"
-          />
-          <div>
-            {" "}
-            <p>{result}</p>
-          </div>
-          <button
-            onClick={handleKNN}
-            className="btn btn-default border w-100 bg-light rounded-4 text-decoration-none"
-          >
-            Run KNN{" "}
-          </button>
-          <div>
-            <p>Distances to all points in ascending order:</p>
-            <ul>
-              {distances.map((pair, index) => (
-                <li
-                  key={index}
-                >{`Distance: ${pair.distance}, ID: ${pair.point.label}`}</li>
-              ))}
-            </ul>
+            <div>
+              <p>Distances to all points in ascending order:</p>
+              <ul>
+                {distances.map((pair, index) => (
+                  <li
+                    key={index}
+                  >{`Distance: ${pair.distance}, ID: ${pair.point.label}`}</li>,
+                  <Result key={pair.distance} pair={pair.point.label} showForm={showForm}/>
+                ))}
+              </ul>
+            </div>
           </div>
         </div>
       </div>
+      {/* <Result /> */}
     </div>
   );
 }

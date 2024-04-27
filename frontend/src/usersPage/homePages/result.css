@@ -1,0 +1,44 @@
+.cards{
+    display: flex;
+    justify-content: center;
+    flex-flow: row wrap;
+    max-width: 1300px;
+    margin: 0 auto;
+  }
+  .card{
+    width: 400px;
+    height: max-content;
+    margin: 1rem;
+    padding: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;;
+    border-radius: 10px;
+    align-items: center;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  }
+  .image{
+    width: 300px;
+    aspect-ratio: 1/1;
+    object-fit: cover;
+  }
+  
+  .tourInfo{
+    margin: 20px 5px;
+  }
+  
+  .tourPrice{
+    color: #1faa59;
+    font-size: 1.3rem;
+  }
+  
+  .tourName{
+    font-size: 1.4rem;
+  }
+  
+  .readMore{
+    color: #12b8c8;
+    text-transform: capitalize;
+    cursor: pointer;
+  }
+  

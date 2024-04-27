@@ -1,26 +1,121 @@
 .navbar {
-    font-family: "Poppins", sans-serif;
-    font-size: 17px;
-    line-height: 26px;
-    text-transform: uppercase;
-    box-shadow: 0 8px 6px -6px gray;
-    --webkit-box-shadow: 0 8px 6px -6px gray;
-    border-bottom: solid gray !important;
+    box-shadow: rgba(238, 43, 9, 0.35) 0px 5px 15px;
+    margin: 0%;
+    padding: 2px;
+    }
+    
+#logo{
+    float: left;
+}
+
+/* Navbar links */
+.nav-item a {
+    color: #e0d8fe !important; /* For browsers that don't support gradients */
+    background-image: -webkit-linear-gradient(top, #ff6347 , #ee3121); /* For Safari 5.1 to 6.0 */
+    background-image: -o-linear-gradient(top, #ff6347 , #ee3121); 
+               
   }
 
-  
-.nav-link {
-    font-weight: 300 !important;
+  .navbar-nav{
+    font-family: "Poppins", sans-serif;
+    text-transform: uppercase;
+    font-size: 17px;
+    letter-spacing: 1px;  
+    justify-content: space-between; 
   }
   
-  .active {
-    border-bottom: 2px solid black;
+  .nav-link {
+    margin: 12px;
+    border-radius: 10px; /* Adds a box shadow to the link */
+  }
+  
+  .nav-link:hover {
+    color: #000000 !important; 
   }
   
   .navbar-brand {
-    font-weight: 700;
     font-family: "roboto", sans-serif;
-    letter-spacing: 3px;
+    text-transform: uppercase;
+    letter-spacing: 15px;
+    font-weight: 700;
+  }
+  
+  @media (max-width: 991px) {
+    .navbar-brand {
+      display: none;
+    }
+    
+  }
+  .search-input {
+    padding-right: 40px; 
+  }
+  
+  .search-container{
+    position: absolute;
+    top: 50%;
+    right: 850px; 
+    transform: translateY(-50%);
+  }
+  
+  .search-input{
+    background: white;
+    border-radius: 10px;
+    box-shadow: rgba(29, 219, 70, 0.35) 0px 5px 15px;
+    padding: 1rem;
+    width: 30vw;
+    border: none;
+    outline: none;
+    font-family: "Poppins", sans-serif;
+  }
+  
+  .findData{
+    margin-left: -35px;
+    position: fixed;
+    width: 102vw;
+    height: 100vh;
+    top: 11.4vh;
+    overflow: scroll;
+   background-color: rgb(250, 250, 250);
+  }
+  
+  .cards{
+    display: flex;
+    justify-content: center;
+    flex-flow: row wrap;
+    max-width: 1300px;
+    margin: 0 auto;
+  }
+  .card{
+    width: 400px;
+    height: max-content;
+    margin: 1rem;
+    padding: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;;
+    border-radius: 10px;
+    align-items: center;
+    box-shadow: rgba(231, 226, 226, 0.24) 0px 3px 8px;
+  }
+  .image{
+    width: 300px;
+    aspect-ratio: 1/1;
+    object-fit: cover;
+  }
+  
+  .tourInfo{
+    margin: 20px 5px;
+  }
+
+  
+  .tourPrice{
+    color: #1faa59;
+    font-size: 1.3rem;
+  }
+  
+  .tourName{
+    font-size: 1.4rem;
   }
   
  
+  

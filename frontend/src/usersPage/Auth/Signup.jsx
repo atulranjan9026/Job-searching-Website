@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Validation from './SignupValidation';
-
+import "./Login.css"
 import axios from "axios";
 
 function Signup() {
@@ -37,7 +37,9 @@ function Signup() {
   };
 
   return (
-    <div className="d-flex justify-content-center align-items-center bg-primary vh-100">
+    <div className="login" > 
+   
+    <div className="Signup">
       <div className="bg-white p-3 rounded w-25">
         <h2>Sign-Up</h2>
         <form action="/login" onSubmit={handleSubmit}>
@@ -97,6 +99,8 @@ function Signup() {
           </Link>
         </form>
       </div>
+      </div>
+
     </div>
   );
 }
