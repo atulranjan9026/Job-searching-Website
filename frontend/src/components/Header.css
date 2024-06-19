@@ -1,55 +1,168 @@
+/* Navbar styles */
 .navbar {
-  padding: 2px;
-
+  padding: 10px 20px;
+  background-color: #fff;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+  position: fixed;
+  width: 100%;
+  z-index: 1000;
 }
-.container-fluid{
-    box-shadow: rgba(238, 43, 9, 0.35) 0px 5px 15px;
-    margin: 0%;
-    display: flex;
-  }
-    .navbar-brand {
-      font-family: "roboto", sans-serif;
-      text-transform: uppercase;
-      letter-spacing: 15px;
-      font-weight: 700;
-    }
-    .search-input{
-      background: white;
-      border-radius: 10px;
-      box-shadow: rgba(29, 219, 70, 0.35) 0px 5px 15px;
-      padding: 1rem;
-      width: 30vw;
-      border: none;
-      outline: none;
-      font-family: "Poppins", sans-serif;
-    }
+
+.container-fluid {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navbar-brand {
+  font-family: "Roboto", sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 5px;
+  font-weight: 700;
+  font-size: 24px;
+  color: #333;
+}
+
+.search-container {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  padding: 0 20px;
+}
+
+.search-input {
+  background: white;
+  border-radius: 25px;
+  box-shadow: rgba(29, 219, 70, 0.35) 0px 5px 15px;
+  padding: 10px 20px;
+  width: 100%;
+  max-width: 600px;
+  border: none;
+  outline: none;
+  font-family: "Poppins", sans-serif;
+  font-size: 16px;
+}
+
+.navbar-nav {
+  display: flex;
+  align-items: center;
+}
+
+.nav-item {
+  margin-left: 20px;
+}
+
 .nav-item a {
-    color: #e0d8fe !important; /* For browsers that don't support gradients */
-    background-image: -webkit-linear-gradient(top, #ff6347 , #ee3121); /* For Safari 5.1 to 6.0 */
-    background-image: -o-linear-gradient(top, #ff6347 , #ee3121); 
-    font-family: "Poppins", sans-serif;
-    text-transform: uppercase;
-    font-size: 17px;
-    letter-spacing: 1px;  
-    justify-content: space-between; 
-    margin: 12px;
-    border-radius: 10px;        
+  color: #e0d8fe;
+  font-family: "Poppins", sans-serif;
+  text-transform: uppercase;
+  font-size: 16px;
+  letter-spacing: 1px;
+  background-image: linear-gradient(to bottom, #ff6347, #ee3121);
+  padding: 10px 15px;
+  border-radius: 5px;
+  transition: color 0.3s ease, background-color 0.3s ease;
+}
+
+.nav-item a:hover {
+  color: #fff !important;
+  background-color: #000;
+}
+
+/* Search results styles */
+.findData {
+  padding: 20px;
+  height: calc(100vh - 70px);
+  position: absolute;
+  top: 70px;
+  left: 0;
+  right: 0;
+  background-color: #fff;
+  border-top: 1px solid #eee;
+  z-index: 999;
+  overflow-y: auto;
+}
+
+.cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+
+.card {
+  background-color: #f8f9fa;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+  overflow: hidden;
+  width: 300px;
+  margin: 10px;
+}
+
+.card img {
+  width: 100%;
+  height: auto;
+}
+
+.tourDetails {
+  padding: 15px;
+  font-family: "Poppins", sans-serif;
+}
+
+.tourDetails h4 {
+  margin: 5px 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+}
+
+.btn {
+  padding: 10px;
+  font-size: 16px;
+  font-weight: 700;
+  text-transform: uppercase;
+  transition: background-color 0.3s ease;
+}
+
+.btn-success {
+  background-color: #28a745;
+  color: #fff;
+}
+
+.btn-success:hover {
+  background-color: #218838;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .search-container {
+    padding: 0 10px;
   }
-  
-  .nav-link:hover {
-    color: #000000 !important; 
+
+  .search-input {
+    width: 100%;
   }
-  
+
+  .navbar-nav {
+    flex-direction: column;
+  }
+
+  .nav-item {
+    margin-left: 0;
+    margin-top: 10px;
+  }
+
   .findData {
-    padding-left: 10%; 
-    height: 100vh;
-    position: absolute;
-    top: 12vh;
-    left: 0;
-    right: 0;
-    background-color: #fff;
-    border-top: none;
-    z-index: 1000; 
-    overflow: scroll;
+    padding: 10px;
   }
-  
+
+  .cards {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .card {
+    width: 100%;
+  }
+}

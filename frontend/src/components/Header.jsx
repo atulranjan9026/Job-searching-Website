@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { NavLink, Link, useNavigate, Router, useNavigation } from "react-router-dom";
 import "./Header.css";
+import { useParams } from "react-router-dom";
 
 function formatImage(buffer) {
   return `data:image/png;base64,${btoa(
@@ -11,12 +12,14 @@ function formatImage(buffer) {
 const Header = () => {
   const [searchText, setSearchText] = useState("");
   const [searchResults, setSearchResults] = useState([]);
-
+  let { email } = useParams();
+  // console.log(email)
+  
   const router = useNavigate()
 
   const navigateToPage = (id)=>{
     setSearchText("")
-    router(`/personDetails/${id}`)
+    router(`/personDetails/${id}/${email}`);
   }
 
   // console.log(searchResults);
@@ -28,10 +31,7 @@ const Header = () => {
   const handleSubmit = () => {
     alert("Logout");
   };
-  // const handleBookClick = (userId) => {
-  //   console.log("Book clicked for user:", userId);
-  //   alert("Book clicked for user:", userId);
-  // };
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -82,11 +82,7 @@ const Header = () => {
                 Home
               </NavLink>
             </li>
-            {/* <li className="nav-item">
-              <NavLink to="/" className="nav-link">
-                Register
-              </NavLink>
-            </li> */}
+          
             <li className="nav-item">
               <NavLink to="/" onClick={handleSubmit} className="nav-link">
                 Logout

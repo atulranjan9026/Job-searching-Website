@@ -3,6 +3,8 @@ import axios from 'axios';
 import { NavLink, Link, useNavigate, Router, useNavigation } from "react-router-dom";
 import "./result.css"
 import  Form  from  "./Form";
+import { useParams } from "react-router-dom";
+
 
 function formatImage(buffer) {
   return `data:image/png;base64,${btoa(
@@ -12,6 +14,8 @@ function formatImage(buffer) {
 
 const Result = ({ data }) => {
   const [userData, setUserData] = useState([]);
+  let { UserEmail } = useParams();
+  console.log(UserEmail)
 
   console.log("data", data)
 
@@ -19,7 +23,9 @@ const Result = ({ data }) => {
   
   const navigateToDetailsPage = (id) => {
     setUserData("")
-    router(`/personDetails/${id}`);
+    router(`/personDetails/${id}/${UserEmail}`);
+    // navigate(`/personDetails/${id}/${email}`);
+
   }
 
   useEffect(() => {

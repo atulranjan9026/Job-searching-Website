@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import Result from "./result";
 import "./Form.css";
-import axios from "axios";
+import Productcategory  from "../../Productcategory/Productcategory";
+import BookingStatus from "../PersonDetails/BookingStatus";
 
 // Function to calculate Euclidean distance between two points
 function euclideanDistance(point1, point2) {
   let sum = 0;
   for (let i = 0; i < point1.length; i++) {
-    sum += Math.pow(point1[i] - point2[i], 4);
+    sum += Math.pow(point1[i] - point2[i], 2);
   }
 
-  return Math.pow(sum, 0.25);
+  return Math.pow(sum, 0.5);
 }
 
 function formatImage(buffer) {
@@ -245,7 +245,9 @@ function KNNApp({ moveToResultPage }) {
     }
   };
 
+
   return (
+     <div>
       <div className="formDetails">
         <form className="form" onSubmit={handleSubmit}>
           <div className="location">
@@ -393,11 +395,11 @@ function KNNApp({ moveToResultPage }) {
                          onClick={handleKNN}
               className="btn   rounded-4"
                          >
-                                Run KNN
+                                Submit
                       </button>
                     <div>
                     
-              <p>Distances to all points in ascending order:</p>
+              {/* <p>Distances to all points in ascending order:</p> */}
               <ul>
                 {distances.map((pair, index) => (
                   <li
@@ -408,6 +410,13 @@ function KNNApp({ moveToResultPage }) {
             </div>
           </div>
           </div>
+          <div >
+          <BookingStatus />
+          </div>
+        </div>
+      </div>
+      <div >
+          <Productcategory   />
         </div>
       </div>
   );

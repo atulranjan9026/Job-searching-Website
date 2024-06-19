@@ -1,0 +1,151 @@
+/* Signup.css */
+
+.auth-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    padding: 20px;
+    margin-top: 70px;
+  }
+  
+  .auth-form-container {
+    width: 100%;
+    max-width: 400px;
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .bg-white {
+    background-color: #fff;
+  }
+  
+  .p-3 {
+    padding: 1rem;
+  }
+  
+  .rounded {
+    border-radius: 10px;
+  }
+  
+  h2 {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    color: #333;
+  }
+  
+  .form-control {
+    width: 100%;
+    padding: 0.75rem;
+    margin-bottom: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+    color: #333;
+  }
+  
+  .form-control.rounded-0 {
+    border-radius: 5px;
+  }
+  
+  .mb-3 {
+    margin-bottom: 1rem;
+  }
+  
+  label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+    color: #555;
+  }
+  
+  .text-danger {
+    color: #dc3545;
+    font-size: 0.875rem;
+    margin-top: 0.5rem;
+  }
+  
+  .btn {
+    display: block;
+    width: 100%;
+    padding: 0.75rem;
+    font-size: 1rem;
+    font-weight: bold;
+    text-align: center;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .btn-success {
+    background-color: #28a745;
+    color: #fff;
+  }
+  
+  .btn-success:hover {
+    background-color: #218838;
+  }
+  
+  .btn-default {
+    background-color: #6c757d;
+    color: #fff;
+  }
+  
+  .btn-default:hover {
+    background-color: #5a6268;
+  }
+  
+  .bg-danger {
+    background-color: #dc3545;
+    color: #fff;
+  }
+  
+  .bg-danger:hover {
+    background-color: #c82333;
+  }
+  
+  .rounded-0 {
+    border-radius: 5px !important;
+  }
+  
+  .w-100 {
+    width: 100%;
+  }
+  
+  .text-decoration-none {
+    text-decoration: none;
+  }
+  
+  p {
+    text-align: center;
+    margin-top: 1rem;
+    font-size: 0.875rem;
+    color: #777;
+  }
+  
+  @media (max-width: 576px) {
+    .auth-form-container {
+      padding: 15px;
+    }
+  
+    .form-control {
+      padding: 0.5rem;
+    }
+  
+    .btn {
+      padding: 0.5rem;
+    }
+  
+    h2 {
+      font-size: 1.5rem;
+    }
+  
+    label {
+      font-size: 0.875rem;
+    }
+  }
+  

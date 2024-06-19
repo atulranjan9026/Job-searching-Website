@@ -1,52 +1,146 @@
+/* General container for the admin section */
+.Admin {
+  display: flex;
+  flex-wrap: wrap; /* Enable wrapping for smaller screens */
+  justify-content: center;
+  padding: 20px;
+  gap: 20px; /* Space between items */
+  margin-top: 90px;
+}
+
+/* Container for the form and details */
 .seekerDr {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 80vh;
+  flex: 1 1 60%; /* Flex properties for responsiveness */
+  background-color: #f8f6f6;
+  box-shadow: 0 2px 4px rgba(206, 122, 122, 0.1);
+  padding: 30px;
+  border-radius: 8px;
 }
 
-.formDrs{
-    display: flex;
-    width: 100%;
-    /* max-width: 1250px; */
-    box-sizing: border-box;
-    font-family: Arial, sans-serif;
-    color: black;
-    padding: 40px;
-    box-shadow: inset;
-    box-shadow: rgba(12, 218, 56, 0.35) 0px 5px 15px;
-    margin-top: 40px;
+/* Container for the form */
+.formDr {
+  display: flex;
+  flex-direction: column;
 }
-.formDrs:hover {
-    transform: scale(1.05);
-    transition: all 0.3s ease-in-out;
-}
-.formDrs div{
-    justify-content: space-between;
-    margin-right:  10px;
-    padding: 10px;
-}
+
+/* Responsive grid layout for form sections */
+.formDrs,
 .point2 {
-    display: flex;
-    justify-content:space-between;
-    width: 100%;
-    box-shadow: rgba(240, 110, 35, 0.35) 0px 5px 15px;
-    margin-top: 40px;
-}
-.point2 div{
-    justify-content: space-between;
-    margin-right:  10px;
-    padding: 10px;
-    width: 200px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* Responsive columns */
+  gap: 20px;
 }
 
-@media screen and (max-width: 900px) {
-    .seekerDr {
-        flex-direction: column;
-        align-items: center;
-    }
-    .writeus-container,
-    .point {
-        width: 100%;
-    }
+/* Form input groups */
+.formDrs > div,
+.point2 > div {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Container for the reviews section */
+.form-container {
+  flex: 1 1 30%; /* Flex properties for responsiveness */
+  background-color: #f8f6f6;
+  box-shadow: 0 2px 4px rgba(206, 122, 122, 0.1);
+  padding: 25px;
+  border-radius: 8px;
+  height: auto; /* Auto height */
+}
+
+/* Title styling */
+.form-title {
+  font-size: 25px;
+  font-weight: bold;
+  color: #2fb636;
+  margin-bottom: 20px;
+}
+
+/* Error message styling */
+.error {
+  color: red;
+}
+
+/* Form control styling */
+.form-control {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.form-control:focus {
+  outline: none;
+  border-color: #007bff;
+}
+
+/* Custom select styling */
+select.form-control {
+  appearance: none;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23212121' width='18px' height='18px'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E") no-repeat right 10px center/10px 10px;
+}
+
+/* Form group styling */
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+/* Submit button styling */
+.btd-submit {
+  margin: 20px auto; /* Center the button */
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  padding: 10px 20px;
+  text-align: center;
+  display: block;
+}
+
+.btd-submit:hover {
+  background-color: #0056b3;
+}
+
+/* Admin page styling */
+.AdminPage {
+  padding: 20px;
+  background-color: #f8f6f6;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(206, 122, 122, 0.1);
+  margin-top: 20px;
+}
+
+.AdminPage h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* Table styling */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+}
+
+th, td {
+  padding: 10px;
+  border: 1px solid #ddd;
+  text-align: center;
+}
+
+th {
+  background-color: #f4f4f4;
+}
+
+@media (max-width: 768px) {
+  .seekerDr, .form-container {
+    flex: 1 1 100%; /* Full width on small screens */
+  }
 }

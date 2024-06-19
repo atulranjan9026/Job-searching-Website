@@ -1,16 +1,20 @@
 .Details {
    display: flex;
-   justify-content: center;
-   align-items: center;
    margin-top: 90px;
    height: 80vh;
- }
- 
- .Detail-container {
-   width: 80%;
+   justify-content: center;
+  }
+  
+  .Detail-container {
+    /* justify-content: center; */
+   align-items: center;
+   width: 50%;
    max-width: 1000px;
  }
- 
+ .payment{
+  margin: 100px;
+  
+ }
  .cardprincipal {
    background-color: #ffffff;
    border-radius: 10px;

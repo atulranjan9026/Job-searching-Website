@@ -1,0 +1,181 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Razorpay</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f4f4f4;
+        }
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        input {
+            margin-bottom: 10px;
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        button {
+            background-color: #2e86de;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #1b4f72;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        table, th, td {
+            border: 1px solid #ccc;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Payment Form</h1>
+        <form id="payment-form">
+            <input type="text" id="sender" placeholder="Sender" required>
+            <input type="text" id="receiver" placeholder="Receiver" required>
+            <input type="number" id="amount" placeholder="Amount (in INR)" required>
+            <button type="submit" id="buy-now-btn">Buy Now</button>
+        </form>
+    </div>
+
+    <div class="container">
+        <h2>Payment History</h2>
+        <table id="payment-history">
+            <thead>
+                <tr>
+                    <th>Sender</th>
+                    <th>Receiver</th>
+                    <th>Amount</th>
+                    <th>Payment ID</th>
+                    <th>Order ID</th>
+                    <th>Signature</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Razorpay Script -->
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+    <script>
+        const paymentForm = document.getElementById('payment-form');
+        const paymentHistoryTable = document.getElementById('payment-history').getElementsByTagName('tbody')[0];
+
+        paymentForm.addEventListener('submit', async (event) => {
+            event.preventDefault();
+
+            const sender = document.getElementById('sender').value;
+            const receiver = document.getElementById('receiver').value;
+            const amount = document.getElementById('amount').value;
+
+            const response = await fetch('/order', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ sender, receiver, amount })
+            });
+
+            const responseJson = await response.json();
+
+            if (responseJson.message !== 'success') {
+                alert('Error creating order');
+                return;
+            }
+
+            const { order } = responseJson;
+
+            const razorPayOptions = {
+                key: 'rzp_test_rjKd6EGg7Yk1wP',
+                amount: amount * 100,
+                currency: 'INR',
+                name: 'Buy Shirt',
+                description: 'Paying for testing',
+                order_id: order.id,
+                handler: async function (response) {
+                    const razorpayPaymentId = response.razorpay_payment_id;
+                    const razorpayOrderId = response.razorpay_order_id;
+                    const razorpaySignature = response.razorpay_signature;
+
+                    // Record payment
+                    const paymentResponse = await fetch('/payment-success', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            sender,
+                            receiver,
+                            amount,
+                            razorpayPaymentId,
+                            razorpayOrderId,
+                            razorpaySignature
+                        })
+                    });
+
+                    const paymentResult = await paymentResponse.json();
+                    if (paymentResult.message === 'Payment recorded successfully') {
+                        addPaymentToTable(paymentResult.payments);
+                    } else {
+                        alert('Error recording payment');
+                    }
+                },
+            };
+
+            const razorpayInstance = new Razorpay(razorPayOptions);
+            razorpayInstance.open();
+        });
+
+        function addPaymentToTable(payments) {
+            paymentHistoryTable.innerHTML = '';
+            payments.forEach(payment => {
+                const row = paymentHistoryTable.insertRow();
+                row.insertCell(0).innerText = payment.sender;
+                row.insertCell(1).innerText = payment.receiver;
+                row.insertCell(2).innerText = payment.amount;
+                row.insertCell(3).innerText = payment.razorpayPaymentId;
+                row.insertCell(4).innerText = payment.razorpayOrderId;
+                row.insertCell(5).innerText = payment.razorpaySignature;
+            });
+        }
+    </script>
+</body>
+</html> -->

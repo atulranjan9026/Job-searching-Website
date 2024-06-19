@@ -1,0 +1,118 @@
+/* General container for the entire login section */
+.login-container {
+    background-color: #f0f8ff; /* Light blue background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    padding: 20px;
+  }
+  
+  /* Form container styling */
+  .form-container {
+    background-color: #ffffff; /* White background for the form */
+    padding: 40px; /* Internal padding */
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    max-width: 400px; /* Maximum width */
+    width: 100%; /* Full width */
+  }
+  
+  /* Title styling */
+  h2 {
+    font-family: "Roboto", sans-serif; /* Font family */
+    font-weight: 700; /* Bold font weight */
+    margin-bottom: 20px; /* Space below the title */
+    color: #333333; /* Dark grey color */
+    text-align: center; /* Centered text */
+  }
+  
+  /* Error message styling */
+  .text-danger {
+    color: #ff4d4d; /* Red color for error messages */
+    font-size: 14px; /* Smaller font size */
+  }
+  
+  /* Input fields styling */
+  .form-control {
+    border: 1px solid #ccc; /* Light grey border */
+    border-radius: 5px; /* Rounded corners */
+    padding: 10px; /* Internal padding */
+    font-size: 16px; /* Font size */
+    margin-top: 5px; /* Space above the input field */
+  }
+  
+  /* Input fields focus state */
+  .form-control:focus {
+    border-color: #72adde; /* Blue border on focus */
+    box-shadow: 0 0 8px rgba(102, 175, 233, 0.6); /* Blue shadow on focus */
+    outline: none; /* No outline */
+  }
+  
+  /* Button styling */
+  .btn {
+    font-family: "Roboto", sans-serif; /* Font family */
+    font-weight: 700; /* Bold font weight */
+    padding: 10px; /* Internal padding */
+    margin-top: 20px; /* Space above the button */
+  }
+  
+  /* Success button styling */
+  .btn-success {
+    background-color: #28a745; /* Green background */
+    border: none; /* No border */
+    transition: background-color 0.3s ease; /* Smooth background color transition */
+  }
+  
+  /* Success button hover state */
+  .btn-success:hover {
+    background-color: #218838; /* Darker green on hover */
+  }
+  
+  /* Default button styling */
+  .btn-default {
+    background-color: #dc3545; /* Red background */
+    border: none; /* No border */
+    color: white; /* White text color */
+    transition: background-color 0.3s ease; /* Smooth background color transition */
+  }
+  
+  /* Default button hover state */
+  .btn-default:hover {
+    background-color: #c82333; /* Darker red on hover */
+  }
+  
+  /* Link styling */
+  .text-decoration-none {
+    text-decoration: none; /* No underline */
+    color: white; /* White text color */
+    display: block; /* Block display */
+    text-align: center; /* Centered text */
+    margin-top: 10px; /* Space above the link */
+  }
+  
+  /* Responsive styles */
+  @media (max-width: 768px) {
+    .form-container {
+      padding: 20px; /* Smaller padding on small screens */
+    }
+  
+    h2 {
+      font-size: 24px; /* Smaller font size on small screens */
+    }
+  
+    .form-control {
+      font-size: 14px; /* Smaller font size on small screens */
+      padding: 8px; /* Smaller padding on small screens */
+    }
+  
+    .btn {
+      font-size: 14px; /* Smaller font size on small screens */
+      padding: 8px; /* Smaller padding on small screens */
+    }
+  
+    .login-container {
+      padding: 10px; /* Smaller padding on small screens */
+    }
+  }
+  

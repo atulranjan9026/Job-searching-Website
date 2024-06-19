@@ -1,42 +1,84 @@
-.container {
-    display: flex;
-    justify-content: center; 
-     align-items: center;
-    height: 80vh;
-  }
-  
-  .seeker-btn,
-  .customer-btn {
-    display: inline-block;
-    padding: 10px 40px;
-    text-align: center;
-    text-decoration: none;
-    font-size: 34px;
-    font-weight: bold;
-    color: #fff;
-    border: 2px solid transparent;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    margin: 150px;
-  }
-  
-  .seeker-btn {
-    background-color: #28a745; /* Green color */
-  }
-  
-  .customer-btn {
-    background-color: #dc3545; /* Red color */
-  }
-  
-  .seeker-btn:hover,
-  .customer-btn:hover {
-    background-color: #000; /* Darken the background color on hover */
-    border-color: #000; /* Darken the border color on hover */
-  }
-  
-  img {
-    max-width: 100%;
+.containerFirst {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+}
+
+.formDiv {
+  text-align: center;
+  margin: 0 20px;
+}
+
+.seeker-btn,
+.customer-btn, 
+.Admin-btn {
+  display: inline-block;
+  padding: 20px 60px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 24px;
+  font-weight: bold;
+  color: #fff;
+  border: 2px solid transparent;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.seeker-btn {
+  background-color: #28a745; /* Green color */
+}
+
+.customer-btn {
+  background-color: #1958e0; /* Red color */
+}
+.Admin-btn {
+  background-color: #dc3545; /* Red color */
+}
+
+.seeker-btn:hover,
+.customer-btn:hover,
+.Admin-btn:hover {
+  background-color: #000; /* Darken the background color on hover */
+  border-color: #000; /* Darken the border color on hover */
+  color: #fff;
+}
+
+img {
+  max-width: 100px;
+  height: auto;
+  margin-bottom: 10px;
+  transition: transform 0.3s ease;
+}
+
+.seeker-btn:hover img,
+.customer-btn:hover img {
+  transform: scale(1.1);
+}
+
+@media (max-width: 768px) {
+  .containerFirst {
+    flex-direction: column;
     height: auto;
-    margin-top: 20px;
+    padding: 20px;
   }
+
+  .formDiv {
+    margin: 20px 0;
+  }
+
+  .seeker-btn,
+  .customer-btn, 
+  .Admin-btn {
+    padding: 15px 40px;
+    font-size: 20px;
+  }
+
+  img {
+    max-width: 80px;
+  }
+}

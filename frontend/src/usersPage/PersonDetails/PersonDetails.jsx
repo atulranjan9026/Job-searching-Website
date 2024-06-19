@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { useParams } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
+import axios from "axios";
 import "./PersonDetails.css";
 
 function formatImage(buffer) {
@@ -10,77 +10,180 @@ function formatImage(buffer) {
 }
 
 const PersonDetails = () => {
-  let { id } = useParams();
+  let { id, email } = useParams();
+  const navigate = useNavigate();
   const [user, setUser] = useState(null);
+  const [reviews, setReviews] = useState([]);
+  const [error, setError] = useState(null);
+  const [bookingAccepted, setBookingAccepted] = useState(false);
+  const [reviewData, setReviewData] = useState({
+    name: "",
+    salary: "",
+    comment: "",
+  });
+  const [userData, setUserData] = useState({
+    id: "",
+    name: "",
+    email: "",
+  });
+  const seekerId = id;
+  const userEmail = email;
 
-  console.log("user", user);
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const response = await axios.get(`http://localhost:5000/userlogin/${email}`);
+        const data = response.data;
+        setUserData({
+          id: data.id,
+          name: data.name,
+          email: data.email,
+        });
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+      }
+    };
+    fetchUserData();
+  }, [email]);
 
   useEffect(() => {
     const fetchData = async () => {
       if (!id) return;
       try {
-        // Placeholder for mostCommonClass and ids
-        const mostCommonClass = "your_most_common_class";
-
-        const ids = [id]; // Replace with your actual IDs
-
         const responseId = await fetch("http://localhost:5000/resultData", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ id: mostCommonClass, ids }),
+          body: JSON.stringify({ id, ids: [id] }),
         });
 
         const dataId = await responseId.json();
-        console.log("resultData :", dataId[0], dataId[0].name);
-
-        // Update state with the fetched data
         setUser(dataId[0]);
       } catch (error) {
-        console.error("Error fetching data:", error);
+        console.error("Error fetching result data:", error);
       }
     };
-
-    // Call the async function inside useEffect
     fetchData();
-  }, []); // Empty dependency array since we don't have any dependencies
+  }, [id]);
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setReviewData({ ...reviewData, [name]: value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      await axios.post("http://localhost:5000/reqbooking", {
+        ...reviewData,
+        userEmail,
+        seekerId,
+        email: user.email,
+        name: userData.name,
+        userId: userData.id,
+      });
+      console.log("Review submitted:", reviewData, userEmail, seekerId, user.email, userData.id, userData.name);
+      setReviewData({
+        name: userData.name,
+        salary: "",
+        comment: "",
+      });
+      navigate(`/form/${user.email}`);
+    } catch (error) {
+      console.error("Error submitting review:", error);
+    }
+  };
+
+  const calculateAverageRating = () => {
+    if (reviews.length === 0) {
+      return { average: 0, totalReviews: 0 };
+    }
+    const total = reviews.reduce((sum, review) => sum + review.rating, 0);
+    const average = (total / reviews.length).toFixed(2);
+    return { average, totalReviews: reviews.length };
+  };
 
   return (
-    <div className="Details">
-    <div className="Detail-container">
-      {user && (
-        <div className="cardprincipal">
-          <div class="content">
-            <div class="image-container">
-              {user.image && (
-                <img
-                  src={formatImage(user.image.data)}
-                  className="image"
-                  alt="img"
-                />
+    <div>
+      <div>
+        {user && (
+          <div className="Details">
+            <div className="Detail-container">
+              <div className="cardprincipal">
+                <div className="content">
+                  <div className="image-container">
+                    {user.image && (
+                      <img
+                        src={formatImage(user.image.data)}
+                        className="image"
+                        alt="img"
+                      />
+                    )}
+                  </div>
+                  <div className="details">
+                    <h4 className="tourPrice">Name: {user.name}</h4>
+                    <h4 className="tourName">Salary: {user.salary}</h4>
+                    <h4 className="tourName">Experiences: {user.exp}</h4>
+                    <h4 className="tourName">Certificate: {user.cert}</h4>
+                    <h4 className="tourName">Certificate: {user.email}</h4>
+                    <div>
+                      <h4>Rating: {calculateAverageRating().average}</h4>
+                      <h4>Total Reviews: {calculateAverageRating().totalReviews}</h4>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div>
+              {bookingAccepted && (
+                <div className="alert alert-success" role="alert">
+                  Booking accepted successfully!
+                </div>
               )}
             </div>
-            <div class="details">
-              {/* <h4 className="tourPrice">ID: {user.id}</h4> */}
-              <h4 className="tourPrice">Name: {user.name}</h4>
-              <h4 className="tourName">Salary: {user.salary}</h4>
-              <h4 className="tourName">Mobile: {user.mobile}</h4>
-              <h4 className="tourName">Email: {user.email}</h4>
-              <h4 className="tourName">Exp: {user.exp}</h4>
-              <h4 className="tourName">Cert: {user.cert}</h4>
+            <div className="payment">
+              <h4 className="tourName">Total Payable: {user.salary}</h4>
+              <div>
+                <h4><strong>Booking</strong></h4>
+                <form onSubmit={handleSubmit}>
+                  <div>
+                    <label>Name:</label>
+                    <input
+                      type="text"
+                      name="name"
+                      value={userData.name}
+                      disabled
+                      required
+                    />
+                  </div>
+                  <div>
+                    <label>Salary:</label>
+                    <input
+                      type="number"
+                      name="salary"
+                      value={reviewData.salary}
+                      onChange={handleInputChange}
+                      required
+                    />
+                  </div>
+                  <div>
+                    <label>Comment:</label>
+                    <textarea
+                      name="comment"
+                      value={reviewData.comment}
+                      onChange={handleInputChange}
+                      required
+                    ></textarea>
+                  </div>
+                  <button type="submit">Book</button>
+                </form>
+              </div>
             </div>
           </div>
-          <div class="btn-container">
-            <Link to="" className="btn btn-success w-100 rounded-4 ">
-              <strong>BOOK</strong>
-            </Link>
-          </div>
-        </div>
-      )}
+        )}
+      </div>
     </div>
-  </div>
-  
   );
 };
 

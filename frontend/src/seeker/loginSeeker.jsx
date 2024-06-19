@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import ValidationSE from './LoginValidationSeeker';
+import "./loginSeeker.css"
 
 function Login() {
   const [values, setValues] = useState({ email: "", password: "" });
@@ -20,11 +21,12 @@ function Login() {
     event.preventDefault();
     const err = ValidationSE(values);
     setErrors(err);
-    console.log(values);
+    console.log(values.email);
+    
 
     if (err.email === "" && err.password === "") {
       axios
-  .post("http://localhost:5000/seekerlogin", values)
+  .post("http://localhost:5000/seeker", values)
         .then((res) => {
           if (res.data.errors) {
             setBackendError(res.data.errors);
@@ -32,7 +34,7 @@ function Login() {
           } else {
             setBackendError([]);
             if (res.data === "Success") {
-              navigate("/seeker");
+              navigate(`/seeker/${values.email}`);
             } else {
               alert("No record existed");
             }
