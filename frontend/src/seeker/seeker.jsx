@@ -116,13 +116,13 @@ const handleAcceptJob = async (email, salary, name, userId ,userEmail) => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     console.log(formData);
-
+  
     try {
       const formDataObj = new FormData();
       Object.keys(formData).forEach((key) => {
         formDataObj.append(key, formData[key]);
       });
-
+  
       const response = await axios.put(
         `http://localhost:5000/seeker/${email}`,
         formDataObj,
@@ -132,13 +132,14 @@ const handleAcceptJob = async (email, salary, name, userId ,userEmail) => {
           },
         }
       );
-
+  
       console.log("response.data.result :", response.data);
       navigate("/loginSeeker");
     } catch (error) {
       console.error("Error submitting data:", error);
     }
   };
+  
    // Function to calculate the average rating
    const calculateAverageRating = () => {
     if (reviews.length === 0) {
@@ -257,8 +258,7 @@ const handleAcceptJob = async (email, salary, name, userId ,userEmail) => {
               <label htmlFor="skill">
                 <strong>Skill</strong>
               </label>
-              <select
-                disabled
+              <select           
                 id="skill"
                 value={formData.skill}
                 onChange={handleChange}

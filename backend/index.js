@@ -8,6 +8,11 @@ const { check, validationResult, body } = require("express-validator");
 const multer = require('multer');
 const upload = multer({ dest: 'uploads/' }); // Configure multer for file uploads
 const DataStorageABI = require('./DataStorageABI');
+const authRoutes = require('./routes/authRoutes');
+const seekerRoutes = require('./routes/seekerRoutes');
+const reviewRoutes = require('./routes/reviewRoutes');
+const paymentRoutes = require('./routes/paymentRoutes');
+const bookingRoutes = require('./routes/bookingRoutes');
 
 const port = process.env.PORT || 5000;
 require("dotenv").config();
@@ -22,15 +27,12 @@ const razorpayInstance = new Razorpay({
   key_secret: process.env.RAZORPAY_KEY_SECRET,
 });
 
-app.use(cors());
 const bodyParser = require("body-parser");
-const path = require("path");
-app.use(express.static('./public'));
-
+app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-
-
+app.use(express.static('./public'));
+const path = require("path");
 
 const db = mysql.createConnection({
   host: process.env.DB_HOST,
@@ -39,62 +41,24 @@ const db = mysql.createConnection({
   database: process.env.DB_DATABASE,
 });
 
-// Initialize ethers provider
-// const provider = new ethers.providers.JsonRpcProvider("http://127.0.0.1:5173");
+app.use('/auth', authRoutes);
+app.use('/seeker', seekerRoutes);
+app.use('/review', reviewRoutes);
+app.use('/payment', paymentRoutes);
+app.use('/booking', bookingRoutes);
 
-//signup  seeker
-app.post("/minidbnew", (req, res) => {
-  if (req.body && req.body.name && req.body.email && req.body.password) {
-    const { name, email, password } = req.body;
-    const sql = `INSERT INTO seeker (name, email, password) VALUES (?, ?, ?)`;
-    const values = [name, email, password];
-    console.log(values);
-    db.query(sql, values, (error, result) => {
-      if (error) {
-        console.error("Signup error:", error.message);
-        res
-          .status(500)
-          .json({ success: false, error: "Internal Server Error" });
-      } else {
-        res.status(200).json({ success: true, message: "Signup successful" });
-      }
-    });
+
+// Connect to MySQL
+db.connect((err) => {
+  if (err) {
+    console.error("MySQL connection error:", err);
+  } else {
+    console.log("Connected to MySQL database");
   }
 });
 
-// login seeker
-app.post(
-  "/seeker",
-  [
-    check("email", "Emaill length error")
-      .isEmail()
-      .isLength({ min: 1, max: 30 }),
-    check("password", "password length 8-10").isLength({ min: 1, max: 10 }),
-  ],
-  (req, res) => {
-    const sql = "SELECT * FROM seeker WHERE email = ? AND password = ?";
-
-    db.query(sql, [req.body.email, req.body.password], (err, data) => {
-      const errors = validationResult(req);
-      if (!errors.isEmpty()) {
-        return res.json(errors);
-      } else {
-        if (err) {
-          return res.json("Error");
-        }
-        if (data.length > 0) {
-          return res.json("Success");
-        } else {
-          return res.json("Faile");
-        }
-      }
-    });
-  }
-);
-
 
 // data seeker
-
 app.post("/ew", (req, res) => {
   const { name, mobile, location, salary, email, skill, exp, cert, image } =
     req.body;
@@ -121,8 +85,8 @@ app.post("/ew", (req, res) => {
     }
   });
 });
-// update
 
+// update
 app.put('/seeker/:email', upload.single('image'), (req, res) => {
   const { email } = req.params;
   const { name, location, salary, mobile, skill, exp, cert } = req.body;
@@ -171,65 +135,8 @@ app.get('/seeker/:email', (req, res) => {
   });
 });
 
-//login  user
-app.post("/minidbnew", (req, res) => {
-  if (req.body && req.body.name && req.body.email && req.body.password) {
-    const { name, email, password } = req.body;
-    const sql = `INSERT INTO userlogin (name, email, password) VALUES (?, ?, ?)`;
-    const values = [name, email, password];
-    console.log(values);
-    db.query(sql, values, (error, result) => {
-      if (error) {
-        console.error("Signup error:", error.message);
-        res
-          .status(500)
-          .json({ success: false, error: "Internal Server Error" });
-      } else {
-        res.status(200).json({ success: true, message: "Signup successful" });
-      }
-    });
-  }
-});
 
-//login  validations
 
-app.post(
-  "/userlogin",
-  [
-    check("email", "Emaill length error")
-      .isEmail()
-      .isLength({ min: 1, max: 30 }),
-    check("password", "password length 8-10").isLength({ min: 1, max: 10 }),
-  ],
-  (req, res) => {
-    const sql = "SELECT * FROM userlogin WHERE email = ? AND password = ?";
-
-    db.query(sql, [req.body.email, req.body.password], (err, data) => {
-      const errors = validationResult(req);
-      if (!errors.isEmpty()) {
-        return res.json(errors);
-      } else {
-        if (err) {
-          return res.json("Error");
-        }
-        if (data.length > 0) {
-          return res.json("Success");
-        } else {
-          return res.json("Faile");
-        }
-      }
-    });
-  }
-);
-
-// Connect to MySQL
-db.connect((err) => {
-  if (err) {
-    console.error("MySQL connection error:", err);
-  } else {
-    console.log("Connected to MySQL database");
-  }
-});
 
 app.post("/search", (req, res) => {
   const { location } = req.body;
@@ -317,7 +224,6 @@ app.post("/Text", (req, res) => {
   });
 });
 
-// Endpoint to handle submitting a review
 // Endpoint to handle submitting a review
 app.post('/reviews', (req, res) => {
   const {seekerId, name, rating, comment } = req.body;

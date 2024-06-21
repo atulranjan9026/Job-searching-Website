@@ -24,7 +24,7 @@ function signupSeeker() {
 
     try {
       const response = await axios.post(
-        "http://localhost:5000/minidbnew",
+        "http://localhost:5000/auth/signupSeeker",
         values
       );
 

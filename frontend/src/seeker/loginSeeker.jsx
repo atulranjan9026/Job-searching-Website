@@ -26,7 +26,7 @@ function Login() {
 
     if (err.email === "" && err.password === "") {
       axios
-  .post("http://localhost:5000/seeker", values)
+  .post("http://localhost:5000/auth/loginSeeker", values)
         .then((res) => {
           if (res.data.errors) {
             setBackendError(res.data.errors);

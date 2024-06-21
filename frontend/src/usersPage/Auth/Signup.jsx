@@ -23,7 +23,7 @@ function Signup() {
     console.log(values);
 
     try {
-      const response = await axios.post("http://localhost:5000/minidbnew", values);
+      const response = await axios.post("http://localhost:5000/auth/signup", values);
       console.log("response.data.result:", response.data);
       navigate("/login");
     } catch (error) {
