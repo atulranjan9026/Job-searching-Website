@@ -18,13 +18,13 @@ const cook = () => {
       price: '5,440',
       link: 'https://www.amazon.in/Berger-Instruments-Interior-Acrylic-Paint/dp/B075W1TJ1F/ref=sr_1_8?sr=8-8'
     },
-    {
-      id: 3,
-      image: 'https://m.media-amazon.com/images/I/317tonuF5gL._QL70_FMwebp_.jpg',
-      title: 'Dulux 5580864 White Solvent Wall Paint  (20 L)',
-      price: '5,440',
-      link: 'https://www.amazon.in/Berger-Instruments-Interior-Acrylic-Paint/dp/B075W1TJ1F/ref=sr_1_8?sr=8-8'
-    },
+    // {
+    //   id: 3,
+    //   image: 'https://m.media-amazon.com/images/I/317tonuF5gL._QL70_FMwebp_.jpg',
+    //   title: 'Dulux 5580864 White Solvent Wall Paint  (20 L)',
+    //   price: '5,440',
+    //   link: 'https://www.amazon.in/Berger-Instruments-Interior-Acrylic-Paint/dp/B075W1TJ1F/ref=sr_1_8?sr=8-8'
+    // },
   ];
 
   return (
