@@ -477,10 +477,14 @@ app.get('/transactions', async (req, res) => {
   }
 });
 
-app.get("/", (req, res) => {
-  return res.json("From Backend Side");
+app.get('/', (req, res) => {
+  res.json('From Backend Side');
+});
+
+app.get('/reqbooking2', (req, res) => {
+  res.json('This is the reqbooking endpoint');
 });
 
 app.listen(port, () => {
-  console.log("Connected to backend!");
+  console.log(`Connected to backend! ${port}`);
 });
