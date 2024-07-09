@@ -25,7 +25,7 @@ import Book from './usersPage/PersonDetails/Book';
 import Admin from './Admin/Admin';
 
 const AppLayout =()=>{
-  return(<>
+  return(<>    
   <Header/>
   <Outlet/>
   <Footer/>

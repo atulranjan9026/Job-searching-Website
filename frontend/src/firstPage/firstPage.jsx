@@ -6,22 +6,21 @@ import Profile from "./profile.png";
 
 const FirstPage = () => {
   useEffect(() => {
-    const botpressScript = document.createElement('script');
-    botpressScript.src = 'https://cdn.botpress.cloud/webchat/v2/inject.js';
-    botpressScript.async = true;
-    document.body.appendChild(botpressScript);
-
+    const injectScript = document.createElement('script');
+    injectScript.src = '/js/inject.js'; // Local path
+    injectScript.async = true;
+    document.body.appendChild(injectScript);
+  
     const configScript = document.createElement('script');
-    configScript.src = 'https://mediafiles.botpress.cloud/dfb2e1b7-4e7b-4644-b34c-53a22e6db78c/webchat/v2/config.js';
+    configScript.src = '/js/config.js'; // Local path
     configScript.async = true;
     document.body.appendChild(configScript);
-
+  
     return () => {
-      document.body.removeChild(botpressScript);
+      document.body.removeChild(injectScript);
       document.body.removeChild(configScript);
     };
   }, []);
-
   return (
     <div>
       <header>

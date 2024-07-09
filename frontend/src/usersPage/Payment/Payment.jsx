@@ -1,11 +1,11 @@
 import axios from 'axios';
-import React, { useState, useEffect} from 'react';
-import { useParams , useNavigate   } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
 import './Payment.css';
 
 const Payment = ({ onPaymentSuccess }) => {
-  const navigate = useNavigate(); // Initialize useHistory hook
-  const { id, name, userName ,salary } = useParams();
+  const navigate = useNavigate();
+  const { id, name, userName, salary } = useParams();
   const [sender, setSender] = useState(name);
   const [receiver, setReceiver] = useState(userName);
   const [amount, setAmount] = useState(id);
@@ -26,93 +26,93 @@ const Payment = ({ onPaymentSuccess }) => {
     fetchTransactions();
   }, []);
 
-  useEffect(() => {
-    const script = document.createElement('script');
-    script.src = 'https://checkout.razorpay.com/v1/checkout.js';
-    script.async = true;
-    document.body.appendChild(script);
+// Payment.jsx
+useEffect(() => {
+  const script = document.createElement('script');
+  script.src = '/js/checkout.js'; // Local path
+  script.async = true;
+  document.body.appendChild(script);
 
-    return () => {
-      document.body.removeChild(script);
-    };
-  }, []);
-
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-
-    try {
-      const response = await axios.post('http://localhost:5000/order', {
-        sender,
-        receiver,
-        amount,
-      });
-
-      if (response.data.message !== 'success') {
-        alert('Error creating order');
-        return;
-      }
-
-      const { order } = response.data;
-
-      const razorPayOptions = {
-        key: 'rzp_test_rjKd6EGg7Yk1wP',
-        amount: amount * 100,
-        currency: 'INR',
-        name: 'Buy Shirt',
-        description: 'Paying for testing',
-        order_id: order.id,
-
-        handler: async (response) => {
-          // const { razorpayPaymentId, razorpayOrderId, razorpaySignature } = response;
-          const razorpayPaymentId = response.razorpay_payment_id;
-          const razorpayOrderId = response.razorpay_order_id;
-          const razorpaySignature = response.razorpay_signature;
-          try {
-            const paymentResponse = await axios.post('http://localhost:5000/payment-success', {
-              sender,
-              receiver,
-              amount,
-              razorpayPaymentId,
-              razorpayOrderId,
-              razorpaySignature,
-            });
-            
-            console.log('Payment Response:', paymentResponse.data); // Log the response for debugging
-
-            if (paymentResponse.data.message === 'Payment recorded successfully') {
-              // onPaymentSuccess(paymentResponse.data.payments);
-              console.log("Success");
-              navigate(`/reviews/${name}/${userName}/${id}/${salary}`);
-            } else {
-              alert('Error recording payment');
-            }
-          } catch (error) {
-            console.error('Error recording payment:', error); // Improved error logging
-          }
-        },
-        prefill: {
-          name: 'Your Name',
-          email: 'your@example.com',
-          contact: '1234567890',
-        },
-        notes: {
-          address: 'Your Address',
-        },
-        theme: {
-          color: '#3399cc',
-        },
-      };
-
-      if (window.Razorpay) {
-        const razorpayInstance = new window.Razorpay(razorPayOptions);
-        razorpayInstance.open();
-      } else {
-        alert('Razorpay SDK failed to load. Are you online?');
-      }
-    } catch (error) {
-      console.error('Error processing payment:', error); // Improved error logging
-    }
+  return () => {
+    document.body.removeChild(script);
   };
+}, []);
+
+const handleSubmit = async (event) => {
+  event.preventDefault();
+
+  try {
+    const response = await axios.post('http://localhost:5000/order', {
+      sender,
+      receiver,
+      amount,
+    });
+
+    if (response.data.message !== 'success') {
+      alert('Error creating order');
+      return;
+    }
+
+    const { order } = response.data;
+
+    const razorPayOptions = {
+      key: 'rzp_test_rjKd6EGg7Yk1wP',
+      amount: amount * 100,
+      currency: 'INR',
+      name: 'Buy Shirt',
+      description: 'Paying for testing',
+      order_id: order.id,
+
+      handler: async (response) => {
+        const razorpayPaymentId = response.razorpay_payment_id;
+        const razorpayOrderId = response.razorpay_order_id;
+        const razorpaySignature = response.razorpay_signature;
+        try {
+          const paymentResponse = await axios.post('http://localhost:5000/payment-success', {
+            sender,
+            receiver,
+            amount,
+            razorpayPaymentId,
+            razorpayOrderId,
+            razorpaySignature,
+          });
+
+          console.log('Payment Response:', paymentResponse.data); // Log the response for debugging
+
+          if (paymentResponse.data.message === 'Payment recorded successfully') {
+            console.log("Success");
+            navigate(`/reviews/${name}/${userName}/${id}/${salary}`);
+          } else {
+            alert('Error recording payment');
+          }
+        } catch (error) {
+          console.error('Error recording payment:', error); // Improved error logging
+        }
+      },
+      prefill: {
+        name: 'Your Name',
+        email: 'your@example.com',
+        contact: '1234567890',
+      },
+      notes: {
+        address: 'Your Address',
+      },
+      theme: {
+        color: '#3399cc',
+      },
+    };
+
+    if (window.Razorpay) {
+      const razorpayInstance = new window.Razorpay(razorPayOptions);
+      razorpayInstance.open();
+    } else {
+      alert('Razorpay SDK failed to load. Are you online?');
+    }
+  } catch (error) {
+    console.error('Error processing payment:', error); // Improved error logging
+  }
+};
+
 
   return (
     <div>

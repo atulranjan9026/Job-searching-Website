@@ -11,7 +11,7 @@ const DataStorageABI = require('./DataStorageABI');
 const authRoutes = require('./routes/authRoutes');
 const seekerRoutes = require('./routes/seekerRoutes');
 const reviewRoutes = require('./routes/reviewRoutes');
-const paymentRoutes = require('./routes/paymentRoutes');
+// const paymentRoutes = require('./routes/paymentRoutes');
 const bookingRoutes = require('./routes/bookingRoutes');
 
 const port = process.env.PORT || 5000;
@@ -44,7 +44,7 @@ const db = mysql.createConnection({
 app.use('/auth', authRoutes);
 app.use('/seeker', seekerRoutes);
 app.use('/review', reviewRoutes);
-app.use('/payment', paymentRoutes);
+// app.use('/payment', paymentRoutes);
 app.use('/booking', bookingRoutes);
 
 
@@ -291,7 +291,7 @@ app.get('/userlogin/:email', (req, res) => {
   console.log("user email:", email);
 
   db.query(sql, [email], (err, result) => {
-    if (err) {
+    if (err) { 
       console.error('Error executing MySQL query:', err);
       return res.status(500).json({ error: 'Internal Server Error' });
     }
@@ -419,7 +419,7 @@ app.post('/order', async (req, res) => {
   const { sender, receiver, amount } = req.body;
 
   const paymentOptions = {
-    amount: amount * 100,
+    amount: amount * 100, // Amount in paise
     currency: 'INR',
     receipt: `receipt_${Math.floor(Math.random() * 1000000)}`,
   };
@@ -428,9 +428,11 @@ app.post('/order', async (req, res) => {
     const razorpayOrder = await razorpayInstance.orders.create(paymentOptions);
     res.json({ message: 'success', order: razorpayOrder });
   } catch (error) {
-    res.status(500).json({ message: 'Something went wrong', error });
+    console.error('Error creating Razorpay order:', error);
+    res.status(500).json({ message: 'Something went wrong', error: error.message || error });
   }
 });
+
 
 app.post('/payment-success', async (req, res) => {
   const { sender, receiver, amount, razorpayPaymentId, razorpayOrderId, razorpaySignature } = req.body;
