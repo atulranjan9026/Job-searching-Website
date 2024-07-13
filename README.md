@@ -4,14 +4,15 @@ WAGER is an innovative platform designed to revolutionize the traditional proces
 
 
 ## Some Images:
-<img width="450px;" src="https://github.com/atulranjan9026/Job-searching-Website/assets/99653239/db7aa0c0-15b1-4d94-8a37-27731352f2c9"/> 
-<img width="450px;" src="https://github.com/atulranjan9026/Job-searching-Website/assets/99653239/8a1377cb-9b84-4447-b421-2b9cb9db1733"/> 
-<img width="450px;" src="https://github.com/atulranjan9026/Job-searching-Website/assets/99653239/7bfc9153-60b5-480b-805f-657136992774"/> 
-<img width="450px;" src="https://github.com/atulranjan9026/Job-searching-Website/assets/99653239/9406bcbc-f2b8-4859-8d27-d02b5ee2ebf8"/> 
+<img width="450px;" src="https://github.com/user-attachments/assets/460d570a-c4cd-4372-ad9b-264db5e0d06c"/> 
+<img width="450px;" src="https://github.com/user-attachments/assets/d10db31f-86d2-49b3-9d17-1c69275ec615"/> 
+<img width="450px;" src="https://github.com/user-attachments/assets/c3c51f34-5f82-4c58-bb69-0734828a8008"/> 
+<img width="450px;" src="https://github.com/user-attachments/assets/78ede549-8a5d-4ebb-9d18-501ff81331b3"/> 
+<img width="450px;" src="https://github.com/user-attachments/assets/8718b67a-acf0-4a05-a0c5-cecc60e2e83d"/> 
+<img width="450px;" src="https://github.com/user-attachments/assets/9db91e42-bc7a-4992-831b-326e1ac050f7"/> 
+<img width="450px;" src="https://github.com/user-attachments/assets/0c3c2cdb-474f-4a8c-9636-3e8c7c8e8dec"/> 
+<img width="450px;" src="https://github.com/user-attachments/assets/ea9b26f6-9f17-4e2c-aedc-4292bd1f190b"/> 
 
 
 
 
-
-
-"# job" 
