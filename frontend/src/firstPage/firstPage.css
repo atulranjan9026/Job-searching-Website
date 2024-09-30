@@ -56,6 +56,7 @@ img {
 }
 
 .seeker-btn:hover img,
+.Admin-btn:hover img,
 .customer-btn:hover img {
   transform: scale(1.1);
 }

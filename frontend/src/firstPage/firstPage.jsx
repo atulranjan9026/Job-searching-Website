@@ -37,19 +37,19 @@ const FirstPage = () => {
         <div className="containerFirst">
           <div className="formDiv">
             <Link to="/loginSeeker" className="seeker-btn">
-              <img src={Workers} alt="Seeker" />
+              <img src={Workers} alt="Seeker" className="m-2"/>
               <strong>SEEKER</strong>
             </Link>
           </div>
           <div className="formDiv">
             <Link to="/login" className="customer-btn">
-              <img src={Profile} alt="Customer" />
+              <img src={Profile} alt="Customer" className="m-2" />
               <strong>CUSTOMER</strong>
             </Link>
           </div>
           <div className="formDiv">
             <Link to="/admin" className="Admin-btn">
-              <img src={Profile} alt="Customer" />
+              <img src={Profile} alt="Customer" className="m-2"/>
               <strong>Admin</strong>
             </Link>
           </div>

@@ -47,7 +47,7 @@ function Login() {
     <div className="login">
       <div className="logincss">
         <div className="bg-white p-3 rounded">
-          <h2>Sign-In</h2>
+          <h2>Login</h2>
           {backendError ? (
             backendError.map((e) => <p className="text-danger">{e.msg}</p>)
           ) : (

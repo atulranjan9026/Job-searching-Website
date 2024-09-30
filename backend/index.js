@@ -205,6 +205,7 @@ app.post("/resultData", (req, res) => {
   });
 });
 
+
 app.post("/Text", (req, res) => {
   const {names} = req.body;
   let sql =
@@ -490,3 +491,7 @@ app.get('/reqbooking2', (req, res) => {
 app.listen(port, () => {
   console.log(`Connected to backend! ${port}`);
 });
+
+
+
+
